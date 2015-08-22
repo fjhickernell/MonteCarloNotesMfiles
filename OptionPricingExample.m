@@ -19,8 +19,8 @@ set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
 % Here we load in the historical adjusted daily closing prices of a stock
 % and plot the most recent year's data.
 
-load AdjCloseData %load the stock price data into memory
-stockPriceHistory = AdjClose(end-249:end); % looking at one previous year's data
+load AdjCloseData -ascii %load the stock price data into memory
+stockPriceHistory = AdjCloseData(end-249:end); % looking at one previous year's data
 S0 = stockPriceHistory(end); %stock price today
 Delta = 1/250; %daily time increment in years
 timeBefore = (-249:0) * Delta; %daily monitoring for one year prior to today

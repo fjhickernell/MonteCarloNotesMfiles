@@ -3,7 +3,7 @@
 % financial derivative or option.  An option gives the right, but not the
 % obligation, to conduct some transaction at a future date.
 
-%% Initializing the workspace and setting the parameters
+%% Initializing the workspace and setting the display parameters
 % These settings clean up the workspace and make the display beautiful.
 
 format compact %eliminate blank lines in output
@@ -91,7 +91,7 @@ SVal = @(n) S0*exp(bsxfun(@plus, ... %bsxfun is a great way to operate on one ve
    scVolatility * cumsum(randn(n,d),2))); %randn produces Gaussian random numbers
 stockVal = SVal(8); %generate 8 paths into the future
 hold on 
-plot(timeAfter,stockVal); %plot the future scenarios
+plot(timeAfter,stockVal,'-',[timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
 text(0.47,230,'\(T\)') %label the final time
 print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 

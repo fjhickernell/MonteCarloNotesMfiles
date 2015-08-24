@@ -17,7 +17,9 @@ set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
 
 %% Plot Historical Data
 % Here we load in the historical adjusted daily closing prices of a stock
-% and plot the most recent year's data.
+% and plot the most recent year's data.  The data were obtained from
+% <http://finance.yahoo.com> for GOOG for the period preceding August 20,
+% 2015.
 
 load AdjCloseData -ascii %load the stock price data into memory
 stockPriceHistory = AdjCloseData(end-249:end); % looking at one previous year's data
@@ -89,7 +91,7 @@ timeFinal = timeAfter(end); %final time
 SVal = @(n) S0*exp(bsxfun(@plus, ... %bsxfun is a great way to operate on one vector and one matrix
    drift*timeAfter, ... %the time varying part
    scVolatility * cumsum(randn(n,d),2))); %randn produces Gaussian random numbers
-stockVal = SVal(8); %generate 8 paths into the future
+stockVal = SVal(20); %generate 20 paths into the future
 hold on 
 plot(timeAfter,stockVal,'-',[timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
 text(0.47,230,'\(T\)') %label the final time
@@ -100,13 +102,13 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 % possibilities.  This time let's plot more and look at the histogram.
 
 stockVal = [stockVal; SVal(1e4)]; %generate a large number of paths
-plot(timeAfter,stockVal) %plot a large number of paths
+h = plot(timeAfter,stockVal); %plot a large number of paths
 [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
 nBin = numel(binCt); %number of bins used
 MATLABblue = [0 0.447 0.741]; %the RGB coordinates of the default MATLAB blue for plotting
-patch(timeFinal + [0; reshape([binCt; binCt],2*nBin,1); 0]*(0.4/max(binCt)), ... %x values
+h = [h; patch(timeFinal + [0; reshape([binCt; binCt],2*nBin,1); 0]*(0.4/max(binCt)), ... %x values
    reshape([binEdge; binEdge], 2*nBin+2, 1), ... %y values
-   MATLABblue,'EdgeColor',MATLABblue) %plot the histogram patch
+   MATLABblue,'EdgeColor',MATLABblue)]; %plot the histogram patch
 print -depsc StockHistoryPlusFutureScenarios.eps %print the plot to a .eps file
 
 %%
@@ -156,14 +158,25 @@ print -depsc StockHistoryPlusFutureScenarios.eps %print the plot to a .eps file
 % European call option with a strike price of \(K = \$600\).
 
 K = 600; %strike price
+delete(h) %delete lots of paths to make the figure simple again
+plot([-1 timeFinal],[K K],'--k') %plot the strike price
+text(0.53,590,'\(K\)') %label the final time
+print -depsc StockHistoryPlusFuturePlusStrike.eps
+
+%% 
+% All the paths that end up above \(K = \$600\) have a positive payoff.
+% Some paths will yield a positive payoff and other will not.
+
 interest = drift + volatility^2/2 %interest rate
 euroCallPrice = mean(max(stockVal(:,d) - K, 0)) * exp(-interest * timeFinal)
 
 %%
-% We can try again
+% We can try again, this time measuring the time taken.
 
+tic %start the timer
 stockVal = SVal(1e4); %generate a large number of new paths
 euroCallPrice = mean(max(stockVal(:,d) - K, 0)) * exp(-interest * timeFinal)
+toc %output the time elapsed since the last tic
 
 %%
 % These two approximations to the one option price are similar, but not the

@@ -103,12 +103,15 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 
 stockVal = [stockVal; SVal(1e4)]; %generate a large number of paths
 h = plot(timeAfter,stockVal); %plot a large number of paths
-[binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
-nBin = numel(binCt); %number of bins used
-MATLABblue = [0 0.447 0.741]; %the RGB coordinates of the default MATLAB blue for plotting
-h = [h; patch(timeFinal + [0; reshape([binCt; binCt],2*nBin,1); 0]*(0.4/max(binCt)), ... %x values
-   reshape([binEdge; binEdge], 2*nBin+2, 1), ... %y values
-   MATLABblue,'EdgeColor',MATLABblue)]; %plot the histogram patch
+MATLABver = ver('MATLAB'); %the next part only works for later versions of MATLAB
+if str2double(MATLABver.Version) >= 8.4 %i.e., 2014b
+   [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
+   nBin = numel(binCt); %number of bins used
+   MATLABblue = [0 0.447 0.741]; %the RGB coordinates of the default MATLAB blue for plotting
+   h = [h; patch(timeFinal + [0; reshape([binCt; binCt],2*nBin,1); 0]*(0.4/max(binCt)), ... %x values
+      reshape([binEdge; binEdge], 2*nBin+2, 1), ... %y values
+      MATLABblue,'EdgeColor',MATLABblue)]; %plot the histogram patch
+end
 print -depsc StockHistoryPlusFutureScenarios.eps %print the plot to a .eps file
 
 %%

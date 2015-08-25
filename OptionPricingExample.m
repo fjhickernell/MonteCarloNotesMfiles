@@ -68,9 +68,9 @@ print -depsc StockHistory.eps %print the plot to a .eps file
 
 diffLogStockPrice = diff(log(stockPriceHistory)); %difference of the log of the stock prices
 scDrift = mean(diffLogStockPrice); %sample mean
-drift = scDrift/Delta; %estimated drift
+drift = scDrift/Delta %estimated drift
 scVolatility = std(diffLogStockPrice); %sample standard deviation
-volatility = scVolatility/sqrt(Delta); %estimated volatility
+volatility = scVolatility/sqrt(Delta) %estimated volatility
 
 %%
 % The interesting part comes next!
@@ -125,7 +125,7 @@ print -depsc StockHistoryPlusFutureScenarios.eps %print the plot to a .eps file
 %
 % \[
 % \begin{array}{rcc}
-% & \text{put} & \text{call} \\ \hline
+% & \text{call} & \text{put} \\ \hline
 % \text{payoff} & \max(S(T) - K,0) & \max(K - S(T),0) 
 % \end{array}
 % \]

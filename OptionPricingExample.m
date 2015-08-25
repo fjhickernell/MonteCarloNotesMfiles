@@ -103,8 +103,7 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 
 stockVal = [stockVal; SVal(1e4)]; %generate a large number of paths
 h = plot(timeAfter,stockVal); %plot a large number of paths
-MATLABver = ver('MATLAB'); %the next part only works for later versions of MATLAB
-if str2double(MATLABver.Version) >= 8.4 %i.e., 2014b
+if str2double(getfield(ver('MATLAB'), 'Version')) >= 8.4 %the next part only works for later versions of MATLAB
    [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
    nBin = numel(binCt); %number of bins used
    MATLABblue = [0 0.447 0.741]; %the RGB coordinates of the default MATLAB blue for plotting

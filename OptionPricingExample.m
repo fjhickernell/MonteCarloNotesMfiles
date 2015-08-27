@@ -101,7 +101,8 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 % Which one of these is correct?  In fact, there are infinitely many
 % possibilities.  This time let's plot more and look at the histogram.
 
-stockVal = [stockVal; SVal(1e4)]; %generate a large number of paths
+n = 1e4;
+stockVal = [stockVal; SVal(n)]; %generate a large number of paths
 h = plot(timeAfter,stockVal); %plot a large number of paths
 if str2double(getfield(ver('MATLAB'), 'Version')) >= 8.4 %the next part only works for later versions of MATLAB
    [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
@@ -170,14 +171,22 @@ print -depsc StockHistoryPlusFuturePlusStrike.eps
 % Some paths will yield a positive payoff and other will not.
 
 interest = drift + volatility^2/2 %interest rate
-euroCallPrice = mean(max(stockVal(:,d) - K, 0)) * exp(-interest * timeFinal)
+Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal);
+euroCallPrice = mean(Yval)
+CLTCIwidth = 2.58*std(Yval)/sqrt(n);
+disp(['The option price = $' num2str(euroCallPrice,'%6.3f') ...
+   ' +/- $' num2str(CLTCIwidth,'%6.3f')])
 
 %%
 % We can try again, this time measuring the time taken.
 
 tic %start the timer
-stockVal = SVal(1e4); %generate a large number of new paths
-euroCallPrice = mean(max(stockVal(:,d) - K, 0)) * exp(-interest * timeFinal)
+stockVal = SVal(n); %generate a large number of new paths
+Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal);
+euroCallPrice = mean(Yval)
+CLTCIwidth = 2.58*std(Yval)/sqrt(n);
+disp(['The option price = $' num2str(euroCallPrice,'%6.3f') ...
+   ' +/- $' num2str(CLTCIwidth,'%6.3f')])
 toc %output the time elapsed since the last tic
 
 %%

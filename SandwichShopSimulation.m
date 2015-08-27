@@ -23,7 +23,7 @@ set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
 % We may simulate \(n\) replications of \(m\) consecutive days:
 
 tic;
-whole = 3; %wholesale price of sandwich
+whole = 2; %wholesale price of sandwich
 retail = 5; %retail price of sandwich
 order = 20; %quantity of sandwiches ordered daily
 demandlo = 5; %lo end of demand

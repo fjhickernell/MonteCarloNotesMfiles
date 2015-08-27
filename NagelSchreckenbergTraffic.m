@@ -95,6 +95,9 @@ ylabel('Time')
 print -depsc NSTraffic.eps
 disp(['Time for the graphical display = ' num2str(toc(tstart)) ' seconds'])
 
+%%
+% _Author: Fred J. Hickernell_
+
 
     
     

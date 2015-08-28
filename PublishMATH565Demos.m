@@ -3,3 +3,4 @@
 publishMathJax('OptionPricingExample')
 publishMathJax('NagelSchreckenbergTraffic')
 publishMathJax('SandwichShopSimulation')
+publishMathJax('OptionPricingMeanMC_CLT')

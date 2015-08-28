@@ -11,11 +11,10 @@ close all %close all figures
 clearvars %clear all variables
 set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
       'defaultLineLineWidth',3, ... %thick lines
-      'defaultLineMarkerSize',40, ... %big dots
-      'defaultTextInterpreter','latex', ... %LaTeX interpreted axis labels
-      'defaultLegendInterpreter','latex') %and legends
+      'defaultLineMarkerSize',40) %big dots
+LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
 
-%% Plot Historical Data
+%% Plot historical data
 % Here we load in the historical adjusted daily closing prices of a stock
 % and plot the most recent year's data.  The data were obtained from
 % <http://finance.yahoo.com> for GOOG for the period preceding August 20,
@@ -32,7 +31,7 @@ ylabel('Stock Price \(S(t)\)') %to identify the axes
 axis([-1 1 300 900]) %set reasonable scales for axes
 print -depsc StockHistory.eps %print the plot to a .eps file
 
-%% Estimate Drift and Volatility
+%% Estimate drift and volatility
 % Although we know the past, we do not know the future.  However, we can
 % use historical data to build a random (stochastic) model of the future.
 % Let \(S(t)\) denote the price of this stock at time \(t\) measured in
@@ -75,7 +74,7 @@ volatility = scVolatility/sqrt(Delta) %estimated volatility
 %%
 % The interesting part comes next!
 
-%% Future Price Movement
+%% Future price movement
 % Next we use these estimated quantities to plot scenarios representing
 % what this stock might do in the future.  We set up times looking half a
 % year, \(T\), ahead: 
@@ -91,7 +90,8 @@ timeFinal = timeAfter(end); %final time
 SVal = @(n) S0*exp(bsxfun(@plus, ... %bsxfun is a great way to operate on one vector and one matrix
    drift*timeAfter, ... %the time varying part
    scVolatility * cumsum(randn(n,d),2))); %randn produces Gaussian random numbers
-stockVal = SVal(20); %generate 20 paths into the future
+n1 = 20; %small number of paths
+stockVal = SVal(n1); %generate some paths into the future
 hold on 
 plot(timeAfter,stockVal,'-',[timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
 text(0.47,230,'\(T\)') %label the final time
@@ -102,8 +102,8 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 % possibilities.  This time let's plot more and look at the histogram.
 
 n = 1e4;
-stockVal = [stockVal; SVal(n)]; %generate a large number of paths
-h = plot(timeAfter,stockVal); %plot a large number of paths
+stockVal = [stockVal; SVal(n-n1)]; %generate a large number of paths
+h = plot(timeAfter,stockVal(n1+1:n,:)); %plot a large number of paths
 if str2double(getfield(ver('MATLAB'), 'Version')) >= 8.4 %the next part only works for later versions of MATLAB
    [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
    nBin = numel(binCt); %number of bins used
@@ -119,7 +119,7 @@ print -depsc StockHistoryPlusFutureScenarios.eps %print the plot to a .eps file
 % higher values.  The value of \(S(T)\) can be arbitrarily high, but may be
 % no less than zero.
 
-%% European Option Pricing
+%% European option pricing
 % A European option comes in two types, call and put, and pays an amount at
 % the time of expiry, \(T\).  The payoff depends on the final price of the
 % stock:
@@ -171,11 +171,11 @@ print -depsc StockHistoryPlusFuturePlusStrike.eps
 % Some paths will yield a positive payoff and other will not.
 
 interest = drift + volatility^2/2 %interest rate
-Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal);
-euroCallPrice = mean(Yval)
-CLTCIwidth = 2.58*std(Yval)/sqrt(n);
+Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal); %payoffs
+euroCallPrice = mean(Yval); %estimated option price
+CLTCIwidth = 2.58*std(Yval)/sqrt(n); %width of confidence interval
 disp(['The option price = $' num2str(euroCallPrice,'%6.3f') ...
-   ' +/- $' num2str(CLTCIwidth,'%6.3f')])
+   ' +/- $' num2str(CLTCIwidth,'%6.3f')]) %display output
 
 %%
 % We can try again, this time measuring the time taken.
@@ -183,10 +183,10 @@ disp(['The option price = $' num2str(euroCallPrice,'%6.3f') ...
 tic %start the timer
 stockVal = SVal(n); %generate a large number of new paths
 Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal);
-euroCallPrice = mean(Yval)
-CLTCIwidth = 2.58*std(Yval)/sqrt(n);
+euroCallPrice = mean(Yval); %estimated option price
+CLTCIwidth = 2.58*std(Yval)/sqrt(n); %width of confidence interval
 disp(['The option price = $' num2str(euroCallPrice,'%6.3f') ...
-   ' +/- $' num2str(CLTCIwidth,'%6.3f')])
+   ' +/- $' num2str(CLTCIwidth,'%6.3f')]) %display output
 toc %output the time elapsed since the last tic
 
 %%

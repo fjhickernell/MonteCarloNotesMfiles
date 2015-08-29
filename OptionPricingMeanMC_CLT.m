@@ -1,4 +1,4 @@
-%% A Monte Carlo Option Pricing Example 
+%% Monte Carlo Option Pricing Example Using CLT Confidence Intervals
 % This MATLAB script shows how to use approximate Central Limit Theorem
 % (CLT) confidence intervals with Monte Carlo to price a financial
 % derivative or option.  See |OptionPricingExample| for some of the

@@ -1,4 +1,4 @@
-%% The Nagel-Schreckenberg Traffic Example
+%% The Nagel-Schreckenberg Traffic Model
 % This example comes from Art Owen's lecture notes on Monte Carlo methods
 % in <http://statweb.stanford.edu/~owen/mc/>.  Vehicles circulate on a
 % track. Their speeding up and slowing down is determined by a random

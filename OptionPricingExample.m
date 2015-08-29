@@ -1,4 +1,4 @@
-%% A Monte Carlo Option Pricing Example 
+%% Monte Carlo Option Pricing
 % This MATLAB script shows how to use Monte Carlo methods to price a
 % financial derivative or option.  An option gives the right, but not the
 % obligation, to conduct some transaction at a future date.
@@ -226,4 +226,4 @@ toc %output the time elapsed since the last tic
 % <http://gailgithub.github.io/GAIL_Dev/>, which you will be using in MATH
 % 565.
 %
-%_Author: Fred J. Hickernell_
+% _Author: Fred J. Hickernell_

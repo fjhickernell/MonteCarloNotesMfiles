@@ -18,17 +18,15 @@ LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
 %% Plot historical hata
 % Here we load in the historical adjusted daily closing prices of a stock
 % and plot the most recent year's data.  The data were obtained from
-% <http://finance.yahoo.com> for GOOG for the period preceding August 20,
-% 2015.
+% <http://finance.yahoo.com> for GOOG for the period ending May 19, 2015.
 
-load AdjCloseData -ascii %load the stock price data into memory
-stockPriceHistory = AdjCloseData(end-249:end); % looking at one previous year's data
+load stockPriceHistory -ascii %load one year of stock price data into memory
 S0 = stockPriceHistory(end); %stock price today
 Delta = 1/250; %daily time increment in years
 timeBefore = (-249:0) * Delta; %daily monitoring for one year prior to today
 plot(timeBefore, stockPriceHistory,'-',0,S0,'.') %plot history
-xlabel('Time \(t\) (in years)\hspace{5ex}') %add labels
-ylabel('Stock Price \(S(t)\)') %to identify the axes
+xlabel('Time, \(t\), in years\hspace{5ex}') %add labels
+ylabel('Stock Price, \(S(t)\), in dollars') %to identify the axes
 axis([-1 1 300 900]) %set reasonable scales for axes
 print -depsc StockHistory.eps %print the plot to a .eps file
 
@@ -103,7 +101,7 @@ payoffs = euroCallPayoff(n); %generate n payoffs
 sortedpay = sort(payoffs); %sort them
 figure
 plot(sortedpay,((1:n)-1/2)/n,'-'); %plot the empirical distribution function scenarios
-xlabel('Payoff')
+xlabel('Payoff in dollars')
 ylabel('CDF')
 axis([0 300 0 1])
 print -depsc PayoffCDF.eps %print the plot to a .eps file

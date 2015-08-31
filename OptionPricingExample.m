@@ -17,17 +17,15 @@ LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
 %% Plot historical data
 % Here we load in the historical adjusted daily closing prices of a stock
 % and plot the most recent year's data.  The data were obtained from
-% <http://finance.yahoo.com> for GOOG for the period preceding August 20,
-% 2015.
+% <http://finance.yahoo.com> for GOOG for the period ending May 19, 2015.
 
-load AdjCloseData -ascii %load the stock price data into memory
-stockPriceHistory = AdjCloseData(end-249:end); % looking at one previous year's data
+load stockPriceHistory -ascii %load one year of stock price data into memory
 S0 = stockPriceHistory(end); %stock price today
 Delta = 1/250; %daily time increment in years
 timeBefore = (-249:0) * Delta; %daily monitoring for one year prior to today
 plot(timeBefore, stockPriceHistory,'-',0,S0,'.') %plot history
-xlabel('Time \(t\) (in years)\hspace{5ex}') %add labels
-ylabel('Stock Price \(S(t)\)') %to identify the axes
+xlabel('Time, \(t\), in years\hspace{5ex}') %add labels
+ylabel('Stock Price, \(S(t)\), in dollars') %to identify the axes
 axis([-1 1 300 900]) %set reasonable scales for axes
 print -depsc StockHistory.eps %print the plot to a .eps file
 
@@ -93,8 +91,9 @@ SVal = @(n) S0*exp(bsxfun(@plus, ... %bsxfun is a great way to operate on one ve
 n1 = 20; %small number of paths
 stockVal = SVal(n1); %generate some paths into the future
 hold on 
-plot(timeAfter,stockVal,'-',[timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
-text(0.47,230,'\(T\)') %label the final time
+plot([0 timeAfter],[repmat(S0,n1,1) stockVal],'-', ...
+   [timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
+text(0.47,220,'\(T\)') %label the final time
 print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 
 %%
@@ -103,7 +102,7 @@ print -depsc StockHistoryPlusFewForward.eps %print the plot to a .eps file
 
 n = 1e4;
 stockVal = [stockVal; SVal(n-n1)]; %generate a large number of paths
-h = plot(timeAfter,stockVal(n1+1:n,:)); %plot a large number of paths
+h = plot([0 timeAfter],[repmat(S0,n-n1,1) stockVal(n1+1:n,:)]); %plot a large number of paths
 if str2double(getfield(ver('MATLAB'), 'Version')) >= 8.4 %the next part only works for later versions of MATLAB
    [binCt,binEdge] = histcounts(stockVal(:,d)); %compute a histogram of the stock prices at the final time
    nBin = numel(binCt); %number of bins used

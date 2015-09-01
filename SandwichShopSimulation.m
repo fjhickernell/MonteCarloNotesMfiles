@@ -10,9 +10,8 @@ close all %close all figures
 clearvars %clear all variables
 set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
       'defaultLineLineWidth',3, ... %thick lines
-      'defaultLineMarkerSize',40, ... %big dots
-      'defaultTextInterpreter','latex', ... %LaTeX interpreted axis labels
-      'defaultLegendInterpreter','latex') %and legends
+      'defaultLineMarkerSize',40) %big dots
+LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
 
 %% Sandwich Shop Parameters
 % A sandwich shop orders \(O\) sandwiches each day at a fixed price of
@@ -23,15 +22,15 @@ set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
 % We may simulate \(n\) replications of \(m\) consecutive days:
 
 tic;
-whole = 2; %wholesale price of sandwich
+whole = 4; %wholesale price of sandwich
 retail = 5; %retail price of sandwich
-order = 20; %quantity of sandwiches ordered daily
+order = 10; %quantity of sandwiches ordered daily
 demandlo = 5; %lo end of demand
 demandhi = 35; %hi end of demand
 ndays = 3*365; %number of days for simulation
 ndvec = (1:ndays)'; %vector of 1 to number of days
-nreps = 10000; %number of reptitions
-nrvec = (1:nreps)'; %number of reptitions of the simulation
+nreps = 10000; %number of replications
+nrvec = (1:nreps)'; %number of replications of the simulation
 
 %% Perform simulation
 % The number of sandwiches sold, \(S\), is the minimum of the demand, and
@@ -85,13 +84,23 @@ xlabel('Number of Replications'); ylabel('Avg Daily Profit')
 % In the above example, the daily profits are independent random variables.
 % Suppose that we consider the case where sandwiches may be saved for one
 % day, and we sell the old sandwiches first.  Then the daily profits are
-% _dependent_ random variables.  The modified simulation is as follows
+% _dependent_ random variables. The formulas change as follows 
+%
+% \begin{gather*}
+% S_{i1} = \min(D_{ij},O), \quad
+% S_{ij} = \min(D_{ij},O + R_{i,j-1}), \qquad j = 2, 3, \ldots, m \\
+% R_{ij} = O + \min(R_{i,j-1} - S_{ij},0) \begin{cases}
+% O, & S_{ij} \le R_{i,j-1} \\ O + R_{i,j-1} -  S_{ij}, 
+% & S_{ij} > R_{i,j-1}, \end{cases} \qquad j = 1, 2, \ldots, m.
+% \end{gather*}
+%
+% The modified simulation is as follows
 
 sold(:,1) = min(demand(:,1),order); %sandwiches sold the first day, none leftover from the day before
 remain(:,1) = order - sold(:,1); %sandwiches leftover
 for j = 2:ndays
    sold(:,j) = min(demand(:,j),order + remain(:,j-1)); %amount of sandwiches sold that day
-   remain(:,j) = order + min(remain(:,j-1) - sold(:,1),0); %cannot keep sandwiches more than one day
+   remain(:,j) = order + min(remain(:,j-1) - sold(:,j),0); %cannot keep sandwiches more than one day
 end
 dayprofit=sold*retail-order*whole; %profit for the day
 avgprofitrun=mean(dayprofit,2); %average profit for the first m days
@@ -118,6 +127,49 @@ disp(' ');
 semilogx((1:nreps)',cumsum(avgprofitrun)./(1:nreps)','-');
 set(gca,'xtick',10.^(0:ceil(log10(nreps))));
 xlabel('Number of Replications'); ylabel('Avg Daily Profit')
+
+%% Comparing Profits for Different Orders and Wholesale Costs
+% Finally, let's run the simulation for a variety of parameters:
+Ovec = 5:5:35; %vector of possible order sizes
+nO = numel(Ovec); %number of possible order sizes
+Wvec = 1:4; %vector of possible wholseale prices
+nW = numel(Wvec); %number of possible wholesale prices
+demand = randi([demandlo,demandhi],nreps,ndays); %uniform random numbers for demand
+avgprofitThrowAway = zeros(nO,nW);
+avgprofitKeep = avgprofitThrowAway;
+for ii = 1:nO
+   order = Ovec(ii);
+   for jj = 1:nW
+      whole = Wvec(jj);
+      % First the simulation where we throw away unsold sandwiches
+      soldThrowAway = min(demand,order); %amount of sandwiches sold that day
+      avgprofitThrowAway(ii,jj) = mean(mean(soldThrowAway*retail-order*whole)); %avg daily profit
+ 
+      % Next the simulation where we keep unsold sandwiches one day
+      soldKeep(:,1) = min(demand(:,1),order); %sandwiches sold the first day, none leftover from the day before
+      remain(:,1) = order - soldKeep(:,1); %sandwiches leftover
+      for j = 2:ndays
+         soldKeep(:,j) = min(demand(:,j),order + remain(:,j-1)); %amount of sandwiches sold that day
+         remain(:,j) = order + min(remain(:,j-1) - soldKeep(:,j),0); %cannot keep sandwiches more than one day
+      end
+      avgprofitKeep(ii,jj) = mean(mean(soldKeep*retail-order*whole)); %avg daily profit
+   end
+end
+
+%%
+% Now we display the output
+disp('Avg Daily Profit | Order Quantity')
+fprintf(' Wholesale Price |')
+fprintf(' %5.0f   ',Ovec)
+fprintf('\n')
+for jj = 1:nW
+   fprintf('Throw Away $%4.2f | ',Wvec(jj))
+   fprintf('$%6.2f  ',avgprofitThrowAway(:,jj))
+   fprintf('\n')
+   fprintf('Keep       $%4.2f | ',Wvec(jj))
+   fprintf('$%6.2f  ',avgprofitKeep(:,jj))
+   fprintf('\n')
+end
 
 %%
 % _Author: Fred J. Hickernell_

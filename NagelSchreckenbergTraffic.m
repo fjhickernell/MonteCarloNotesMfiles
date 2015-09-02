@@ -9,9 +9,8 @@ format compact %eliminate blank lines in output
 close all %close all figures
 clearvars %clear all variables
 set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
-      'defaultLineMarkerSize',3, ... %small dots
-      'defaultTextInterpreter','latex', ... %LaTeX interpreted axis labels
-      'defaultLegendInterpreter','latex') %and legends
+      'defaultLineMarkerSize',3) %small dots
+LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
 tstart=tic; %start timer
 
 %% Parameters for this Simulation

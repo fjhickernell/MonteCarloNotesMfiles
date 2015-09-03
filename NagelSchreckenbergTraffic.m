@@ -4,13 +4,8 @@
 % track. Their speeding up and slowing down is determined by a random
 % process.
 
-%% Initialization
-format compact %eliminate blank lines in output
-close all %close all figures
-clearvars %clear all variables
-set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24, ... %make font larger
-      'defaultLineMarkerSize',3) %small dots
-LatexInterpreter %LaTeX interpreted axis labels, tick labels, and legends
+InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+set(0,'defaultLineMarkerSize',3) %small dots
 tstart=tic; %start timer
 
 %% Parameters for this Simulation

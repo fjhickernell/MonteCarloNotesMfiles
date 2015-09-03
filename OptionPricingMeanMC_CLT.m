@@ -140,7 +140,7 @@ trueEuroCallPrice = S0 * normcdf((log(S0/K) ...
    + (interest - volatility.^2/2)*timeFinal)/(volatility * sqrt(timeFinal)))
 
 %%
-% Our Monte Carlo approximation is within \(\pm 0.1\) of the true price.
+% Our Monte Carlo approximation is within \(\pm \$0.1\) of the true price.
 %
 % We can also set a pure relative error criterion of 5 cents on 10 dollars:
 
@@ -151,7 +151,7 @@ tic
 toc
 
 %%
-% Now our Monte Carlo approximation is within \(\pm 0.005 \times 18.09 =
-% \pm 0.09\) of the true price.
+% Now our Monte Carlo approximation is within \(\pm 0.005 \times \$9.98 =
+% \pm \$0.05\) of the true price.
 %
 % _Author: Fred J. Hickernell_

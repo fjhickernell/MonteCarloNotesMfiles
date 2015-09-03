@@ -83,8 +83,8 @@ xlabel('Number of Replications'); ylabel('Avg Daily Profit')
 % \begin{gather*}
 % S_{i1} = \min(D_{ij},O), \quad
 % S_{ij} = \min(D_{ij},O + R_{i,j-1}), \qquad j = 2, 3, \ldots, m \\
-% R_{ij} = O + \min(R_{i,j-1} - S_{ij},0) \begin{cases}
-% O, & S_{ij} \le R_{i,j-1} \\ O + R_{i,j-1} -  S_{ij}, 
+% R_{ij} = O + \min(R_{i,j-1} - S_{ij},0) = \begin{cases}
+% O, & S_{ij} \le R_{i,j-1}, \\ O + R_{i,j-1} -  S_{ij}, 
 % & S_{ij} > R_{i,j-1}, \end{cases} \qquad j = 1, 2, \ldots, m.
 % \end{gather*}
 %

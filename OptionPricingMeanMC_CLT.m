@@ -108,7 +108,7 @@ print -depsc PayoffCDF.eps %print the plot to a .eps file
 %
 % We want a fixed width confidence interval, i.e., given an absolute error
 % tolerance \(\varepsilon_{\text{a}}\) and a relative error tolerance
-% \(\varepsilon_{\text{r}}\) we want to find \(\hat{mu}\) such that
+% \(\varepsilon_{\text{r}}\) we want to find \(\hat{\mu}\) such that
 %
 % \[ \mathbb{P}[|\mu - \hat{\mu}| \le \max(\varepsilon_{\text{a}},
 % \varepsilon_{\text{r}}|\mu|) \ge 99\%. \]

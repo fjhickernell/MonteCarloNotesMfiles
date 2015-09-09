@@ -26,7 +26,7 @@ InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 tic
 absTol = 0.01; %error tolerance
 alpha = 0.01; %uncertainty
-Ntry = 1000; %number of trials
+Ntry = 5000; %number of trials
 Y=@(n,p) rand(n,1).^p; %Y=X^p where X is standard uniform
 mu = @(p) 1/(p+1); %true answer
 muhat=zeros(Ntry,1); %initialize

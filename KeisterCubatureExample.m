@@ -52,7 +52,7 @@ IMCvec
 % There is a way to get the value of this integral to machine precision
 % using the function |Keistertrue|
 %
-% <include>Keistertrue.m<include>
+% <include>Keistertrue.m</include>
 
 [~,Ivec] = Keistertrue(dvec(end));
 relErrMC = abs(Ivec-IMCvec)./abs(Ivec)

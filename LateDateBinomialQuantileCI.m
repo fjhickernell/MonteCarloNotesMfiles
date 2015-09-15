@@ -24,7 +24,6 @@
 % * what is the time you need to leave by to guarantee with \(98\%\)
 % confidence that you will be on time.
 
-%% 
 InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Simulating travel times

@@ -13,6 +13,8 @@ publishMathJax('CLTCIfail')
 publishMathJax('OptionPricingMeanMC_g')
 publishMathJax('LateDateBinomialQuantileCI')
 publishMathJax('KeisterCubatureExample')
+publishMathJax('BrownianMotionExample')
+publishMathJax('IntroGAILOptionPricing')
 
 load PublishTime.mat %load back tPubStart
 disp('Total time required to publish all scripts is')

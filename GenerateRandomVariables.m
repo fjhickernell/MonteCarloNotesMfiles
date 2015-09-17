@@ -108,7 +108,7 @@ axis([-6 4 -1 7])
 shouldBeAlmostM = mean(Gaussianpts) %should be close to m
 shouldBeAlmostSigma = cov(Gaussianpts) %should be close to Sigma
 
-%% Generating Exp(\(\lambda\)) Random Numbers
+%% Generating Exp(\(\lambda\)) Random Numbers by the Inverse Distribution Transformation
 % For random vectors that are not distributed uniformly or Gaussian, we may
 % sometimes use the inverse cumulative distribution function.  To genearate
 % an exponentially distributed random variable, \(Y \sim \)
@@ -123,6 +123,46 @@ shouldBeAlmostSigma = cov(Gaussianpts) %should be close to Sigma
 
 twotaxiwait = @(n) -10*sum(log(rand(n,2)),2);
 avgwait = meanMC_g(twotaxiwait,0.01,0)
+
+%% Generating Discrete Random Numbers by the Inverse Distribution Transformation
+% Discrete random variables have their probablity mass functions,
+% \(\varrho\), and cumulative distribution functions, \(F\), given by
+% tables, e.g.,
+%
+% \[
+% \begin{array}{r|cccc}
+% y & 0 & 1 & 2 & 3 \tabularnewline
+% \varrho(y) = \mathcal{P}(Y=y) & 0.2 & 0.4 & 0.3 & 0.1 \tabularnewline
+% F(y) = \mathcal{P}(Y \le y) & 0.2 & 0.6 & 0.9 & 1 \tabularnewline
+% \end{array}
+% \]
+
+yvals = 0:3 %ordered possible values of the random variable Y
+PDFvals = [0.2 0.4 0.3 0.1] %corresponding values of the PDF
+CDFvals = cumsum(PDFvals) %corresponding values of the CDF
+
+%%
+% We can use the |griddedInterpolant| to build the quantile function,
+% \(F^{-1}\).
+
+quantileFun = griddedInterpolant(CDFvals,yvals,'next'); %next neighbor interpolation
+
+%%
+% This allows us to generate IID values of \(Y\).
+
+X = rand(1,8) %generate IID standard uniform random numbers
+Y = quantileFun(X) %generate IID random numbers with the desired distribution
+
+%%
+% We can check the sample statistics of this random number generator and
+% note that they are close to the correponding population values
+
+n = 1e4; %sample size
+Y = quantileFun(rand(n,1)); %generate a large number of Y values
+prob0 = sum(Y == 0)/n %sample proportion of 0 values, should be close to 0.2
+prob1 = sum(Y == 1)/n %sample proportion of 1 values, should be close to 0.4
+prob2 = sum(Y == 2)/n %sample proportion of 2 values, should be close to 0.3
+prob3 = sum(Y == 3)/n %sample proportion of 3 values, should be close to 0.1
 
 %%
 % _Author: Fred J. Hickernell_

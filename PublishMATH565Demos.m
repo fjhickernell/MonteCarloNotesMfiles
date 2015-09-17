@@ -16,6 +16,7 @@ publishMathJax('KeisterCubatureExample')
 publishMathJax('BrownianMotionExample')
 publishMathJax('IntroGAILOptionPricing')
 publishMathJax('GenerateRandomVariables')
+publishMathJax('HandlesVsValues')
 
 load PublishTime.mat %load back tPubStart
 disp('Total time required to publish all scripts is')

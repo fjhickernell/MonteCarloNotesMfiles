@@ -2,8 +2,8 @@
 InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %%
-A value variable is what we are most familiar with.  First we set |x| to be
-% a value and copy it to |y|.
+% A value variable is what we are most familiar with.  First we set |x| to
+% be a value and copy it to |y|.
 
 x = 4 %set x to be a value
 y = x %copy x to y

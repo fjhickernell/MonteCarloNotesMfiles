@@ -157,7 +157,7 @@ Y = quantileFun(X) %generate IID random numbers with the desired distribution
 % We can check the sample statistics of this random number generator and
 % note that they are close to the correponding population values
 
-Y = quantileFun(rand(n,1e4)); %generate a large number of Y values
+Y = quantileFun(rand(1e4,1)); %generate a large number of Y values
 prob0 = mean(Y == 0) %sample proportion of 0 values, should be close to 0.2
 prob1 = mean(Y == 1) %sample proportion of 1 values, should be close to 0.4
 prob2 = mean(Y == 2) %sample proportion of 2 values, should be close to 0.3

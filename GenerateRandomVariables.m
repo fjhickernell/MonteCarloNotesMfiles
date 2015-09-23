@@ -2,7 +2,7 @@
 % MATLAB has basic random number generators
 %
 % * |rand| for generating \(\mathcal{U}[0,1]\) random variables, and
-% * |randn| for generating \(\mathcal{N}[0,1]\) random variables.
+% * |randn| for generating \(\mathcal{N}(0,1)\) random variables.
 %
 % In this MATLAB script we want to show how to generate other kinds of
 % random variables
@@ -10,9 +10,14 @@
 %% \(\mathcal{U}[\boldsymbol{a},\boldsymbol{b}]\) random vectors
 % The command |rand(n,d)| generates \(n\) IID uniform random \(d\)-vectors
 % with distribution \(\mathcal{U}[0,1]^d\).  If we need uniform random
-% vectors over an arbitrary, finite \(d\)-dimensional box
-% \([\boldsymbol{a},\boldsymbol{b}]\), then we can make an affine
-% transformation.
+% vectors, \(\boldsymbol{Z}\), over an arbitrary, finite \(d\)-dimensional
+% box \([\boldsymbol{a},\boldsymbol{b}]\), then we can make an affine
+% transformation:
+%
+% \[
+% Z_j = a_j + (b_j - a_j) X_j, \quad j=1, \ldots, d, \qquad \boldsymbol{X}
+% \sim \mathcal{U}[0,1]^d.
+% \]
 
 InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 unif = @(n,ab) bsxfun(@plus,ab(1,:), bsxfun(@times, diff(ab,1,1),rand(n,size(ab,2))));
@@ -82,15 +87,18 @@ shouldBeAlmostSigma = cov(Gaussianpts) %should be close to Sigma
 %%
 % Given a covariance matrix \(\mathsf{\Sigma}\) there are many matrices
 % \(\mathsf{A}\) satisfying \(\mathsf{\Sigma} = \mathsf{A} \mathsf{A}^T\).
-%  For example, if \(\mathsf{U}\) is any unitary matrix, i.e., any
-%  matrix satisfying \(\mathsf{U}^T \mathsf{U} = \mathsf{I}\), then
+%  For example, if \(\mathsf{U}\) is any unitary matrix, i.e., any matrix
+%  satisfying \(\mathsf{U}^T \mathsf{U} = \mathsf{I}\), then
 %  \(\mathsf{\Sigma} = \mathsf{C} \mathsf{C}^T\) for \(\mathsf{C} =
 %  \mathsf{A}\mathsf{U}^T\).  Another way to find a matrix \(\mathsf{A}\)
 %  satisfying \(\mathsf{\Sigma} = \mathsf{A} \mathsf{A}^T\) is to use the
 %  singular value decomposition:  \(\mathsf{\Sigma} =
 %  \mathsf{U}\mathsf{\Gamma}\mathsf{V}'\), where \(\mathsf{U}\) and
-%  \(\mathsf{V}\) are unitary.  Since \(\mathsf{\Sigma}\) is symmetric,
-%  \(\mathsf{U} = \mathsf{V}\)
+%  \(\mathsf{V}\) are unitary and \(\mathsf{\Gamma}\) is diagonal with
+%  non-negative entries.  Since \(\mathsf{\Sigma}\) is symmetric,
+%  \(\mathsf{U} = \mathsf{V}\), so one may choose
+%
+% \[ \mathsf{A} = \mathsf{U} \mathsf{\Gamma}^{1/2}. \]
 
 [U,Gamma] = svd(Sigma,'econ'); %computes the SVD decomposition 
 B = bsxfun(@times,sqrt(diag(Gamma)),U') % to create an upper triangluar matrix such that B'B = Sigma
@@ -131,9 +139,9 @@ avgwait = meanMC_g(twotaxiwait,0.01,0)
 %
 % \[
 % \begin{array}{r|cccc}
-% y & 0 & 1 & 2 & 3 \tabularnewline
-% \varrho(y) = \mathcal{P}(Y=y) & 0.2 & 0.4 & 0.3 & 0.1 \tabularnewline
-% F(y) = \mathcal{P}(Y \le y) & 0.2 & 0.6 & 0.9 & 1 \tabularnewline
+% y & 0 & 1 & 2 & 3 \\
+% \varrho(y) = \mathbb{P}(Y=y) & 0.2 & 0.4 & 0.3 & 0.1 \\
+% F(y) = \mathbb{P}(Y \le y) & 0.2 & 0.6 & 0.9 & 1 \\
 % \end{array}
 % \]
 

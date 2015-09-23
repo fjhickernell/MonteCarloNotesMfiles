@@ -1,23 +1,68 @@
 %% Publish MATH 565 Demo Scripts
-
+% This m-file publishes as html files the sample programs used in MATH 565
+% Monte Carlo Methods in Finance.  The se 
+%
+% First we move to the correct directory
 cd(fileparts(which('PublishMATH565Demos'))) %change directory to where this is
 clearvars %clear all variables
 tPubStart = tic; %start timer
 save('PublishTime.mat','tPubStart') %save it because clearvars is invoked by demos
 
+%%
+% How to use Monte Carlo methods to price a European option:
 publishMathJax('OptionPricingExample')
+
+%%
+% How to use Monte Carlo methods to model traffic flow:
 publishMathJax('NagelSchreckenbergTraffic')
+
+%%
+% How to use Monte Carlo methods to compute average profit for a sandwich
+% shop:
 publishMathJax('SandwichShopSimulation')
+
+%%
+% How price options to a given error tolerance using CLT-based fixed width
+% confidence intervals:
 publishMathJax('OptionPricingMeanMC_CLT')
+
+%%
+% How CLT-based confidence intervals can fail:
 publishMathJax('CLTCIfail')
+
+%%
+% How price options to a given error tolerance using a guaranteed algorithm
+% for computing fixed width confidence intervals---this algorithm is in
+% GAIL:
 publishMathJax('OptionPricingMeanMC_g')
+
+%%
+% Confidence intervals for binomial random variables and quantiles:
 publishMathJax('LateDateBinomialQuantileCI')
+
+%%
+% Keister's multidimensional integration example:
 publishMathJax('KeisterCubatureExample')
+
+%%
+% Simulating Brownian motions:
 publishMathJax('BrownianMotionExample')
+
+%%
+% Using the GAIL classes for pricing options with (quasi-)Monte Carlo
+% methods:
 publishMathJax('IntroGAILOptionPricing')
-publishMathJax('GenerateRandomVariables')
+
+%%
+% The differences between handles and values:
 publishMathJax('HandlesVsValues')
 
+%%
+% Generating random variables with more complicated distributions:
+publishMathJax('GenerateRandomVariables')
+
+%%
+% Clean up and publish the total time taken.
 load PublishTime.mat %load back tPubStart
 disp('Total time required to publish all scripts is')
 disp(['   ', num2str(toc(tPubStart)) ' seconds'])

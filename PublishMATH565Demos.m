@@ -62,6 +62,10 @@ publishMathJax('HandlesVsValues')
 publishMathJax('GenerateRandomVariables')
 
 %%
+% Demonstrates how to avoid problems of insufficient RAM:
+publishMathJax('RAMproblems')
+
+%%
 % Clean up and publish the total time taken.
 load PublishTime.mat %load back tPubStart
 disp('Total time required to publish all scripts is')

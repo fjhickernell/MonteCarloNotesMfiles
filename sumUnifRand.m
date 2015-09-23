@@ -8,6 +8,6 @@ for j = 1:nit
 end
 nrem = n - nit*npc; %left overs
 if nrem > 0
-   Y(nit*npc+1:n) = sum(rand(nrem,d),2);
+   Y(nit*npc+1:n) = sum(rand(nrem,d),2); %sum of d uniform random variables
 end
 end

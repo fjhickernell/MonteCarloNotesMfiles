@@ -62,7 +62,7 @@ publishMathJax('HandlesVsValues')
 publishMathJax('GenerateRandomVariables')
 
 %%
-% Demonstrates how to avoid problems of insufficient RAM:
+% Demonstrates how to avoid problems of insufficient RAM in certain cases:
 publishMathJax('RAMproblems')
 
 %%

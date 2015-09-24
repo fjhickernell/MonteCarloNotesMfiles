@@ -171,5 +171,63 @@ prob1 = mean(Y == 1) %sample proportion of 1 values, should be close to 0.4
 prob2 = mean(Y == 2) %sample proportion of 2 values, should be close to 0.3
 prob3 = mean(Y == 3) %sample proportion of 3 values, should be close to 0.1
 
+%% Generating Gaussian Random Variates by the Acceptance-Rejection Method
+% The Gaussian random number generator, |randn|, is built on the uniform
+% random number generator, |rand|, in a rather sophisticated way.  But
+% |randn| is a bit   slower than |rand|.  E.g.,
+
+n = 1e6; %number of random variables needed
+tic
+X = rand(n,1); %generate uniform random numbers
+toc
+tic
+Z = randn(n,1); %generate Gaussian random numbers
+toc
+
+%%
+% Here we explore one possible way of generating Gaussian random numbers
+% from uniform random numbers.  If \((X_i, U_i, V_i)
+% \overset{\text{IID}}{\sim} \mathcal{U}[0,1]^3\), and \(Y_i = \log(X_i)\),
+% then we accept
+%
+% \[ \text{sign}(V_i - 0.5)Y_i \]
+% 
+% as a \(\mathcal{N}(0,1)\) random number provided that \(U_i \le
+% \exp(-(Y_i+1)^2/2)\).  Since we only accept \(\sqrt{\pi/(2 {\rm
+% e})}\approx 0.76\) of the values, we must generate, say \(1.4 > 1/0.76\)
+% times as many \((X_i, U_i, V_i)\) as the number of Gaussian random
+% variables that we need.
+
+tic
+XUV = rand(1.4*n,3); %some uniform random numbers
+Y = log(XUV(:,1)); %compute Y
+keep = XUV(:,2) <= exp(-(Y+1).^2/2); %these are the ones that we keep
+ZAR = Y(keep); %grab the ones that we want
+ZAR = ZAR.*sign(XUV(keep,3)-0.5); %apply the sign
+ZAR = ZAR(1:n); %keep only as many as we need
+toc
+
+%%
+% This method is much slower than |randn|, but we can use it for other
+% distributions as well.
+
+%% Generating Gaussian Random Variates by the Box-Muller Method
+% Another method for generating the two IID Gaussian random variables at a
+% time is as follows
+
+tic
+ZBM = rand(n,2); %uniform random vectors
+ZBM = [sqrt(-2*log(ZBM(:,1))) (2*pi)*ZBM(:,2)];
+ZBM = [ZBM(:,1).*cos(ZBM(:,2)) ZBM(:,1).*sin(ZBM(:,2))]; %Gaussian random vectors
+toc
+
+tic
+Z2 = randn(n,2); %generate Gaussian random numbers
+toc
+
+%%
+% The Box-Muller method is slower, but somewhat more competitive than
+% acceptance-rejection.
+
 %%
 % _Author: Fred J. Hickernell_

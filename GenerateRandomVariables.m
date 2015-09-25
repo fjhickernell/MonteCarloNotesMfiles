@@ -171,7 +171,7 @@ prob1 = mean(Y == 1) %sample proportion of 1 values, should be close to 0.4
 prob2 = mean(Y == 2) %sample proportion of 2 values, should be close to 0.3
 prob3 = mean(Y == 3) %sample proportion of 3 values, should be close to 0.1
 
-%% Generating Gaussian Random Variates by the Acceptance-Rejection Method
+%% Generating Gaussian Random Variates
 % The Gaussian random number generator, |randn|, is built on the uniform
 % random number generator, |rand|, in a rather sophisticated way.  But
 % |randn| is a bit   slower than |rand|.  E.g.,
@@ -184,7 +184,19 @@ tic
 Z = randn(n,1); %generate Gaussian random numbers
 toc
 
+%% Generating Gaussian Random Variates by the Inverse CDF Transform
+% MATLAB has an inverse normal transform, which can be used to generate
+% Gaussian random variables
+
+tic
+ZCDF = norminv(rand(n,1)); %generate Gaussian random numbers byt the inverse CDF transform
+toc
+
 %%
+% This method is slower than |randn|, but is useful when the uniform random
+% numbers come from non-IID uniform low discrepancy points.
+
+%% Generating Gaussian Random Variates by the Acceptance-Rejection Method
 % Here we explore one possible way of generating Gaussian random numbers
 % from uniform random numbers.  If \((X_i, U_i, V_i)
 % \overset{\text{IID}}{\sim} \mathcal{U}[0,1]^3\), and \(Y_i = \log(X_i)\),

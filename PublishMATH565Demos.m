@@ -8,7 +8,7 @@ clearvars %clear all variables
 tPubStart = tic; %start timer
 save('PublishTime.mat','tPubStart') %save it because clearvars is invoked by demos
 
-%%
+%% MATH 565 Part I Introduction
 % How to use Monte Carlo methods to price a European option:
 publishMathJax('OptionPricingExample')
 
@@ -41,6 +41,10 @@ publishMathJax('OptionPricingMeanMC_g')
 publishMathJax('LateDateBinomialQuantileCI')
 
 %%
+% Demonstrates how to avoid problems of insufficient RAM in certain cases:
+publishMathJax('RAMproblems')
+
+%%
 % Keister's multidimensional integration example:
 publishMathJax('KeisterCubatureExample')
 
@@ -57,13 +61,13 @@ publishMathJax('IntroGAILOptionPricing')
 % The differences between handles and values:
 publishMathJax('HandlesVsValues')
 
-%%
+%% Part II Generating Random Variables and Vectors
 % Generating random variables with more complicated distributions:
 publishMathJax('GenerateRandomVariables')
 
-%%
-% Demonstrates how to avoid problems of insufficient RAM in certain cases:
-publishMathJax('RAMproblems')
+%% Part III Pricing Options
+% Pricing Options with Asian type payoffs:
+publishMathJax('PricingAsianOptions')
 
 %%
 % Clean up and publish the total time taken.

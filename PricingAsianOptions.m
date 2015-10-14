@@ -48,14 +48,14 @@ disp(['The price of this European call option is $' num2str(EuroCall.exactPrice)
 % object.  Then we change the properties that we need to change.
 
 ArithMeanCall = optPrice(EuroCall); %make a copy
-ArithMeanCall.payoffParam.optType = {'amean'} %change from European to Asian arithemetic mean
+ArithMeanCall.payoffParam.optType = {'amean'} %change from European to Asian arithmetic mean
 
 %%
 % Next we generate the price using the |genOptPrice| method of the |optPrice|
 % object. 
 
 [ArithMeanCallPrice,out] = genOptPrice(ArithMeanCall); %uses meanMC_g to compute the price
-disp(['The price of this Asian arithemetic mean call option is $' num2str(ArithMeanCallPrice) ...
+disp(['The price of this Asian arithmetic mean call option is $' num2str(ArithMeanCallPrice) ...
    ' +/- $' num2str(max(ArithMeanCall.priceParam.absTol, ...
    ArithMeanCall.priceParam.relTol*ArithMeanCallPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
@@ -64,12 +64,12 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 % The price of the Asian arithmetic mean call option is smaller than the
 % price of the European call option.  
 %
-% We may also price the Asian arithemetic mean put option as follows:
+% We may also price the Asian arithmetic mean put option as follows:
 
 ArithMeanPut = optPrice(ArithMeanCall); %make a copy
 ArithMeanPut.payoffParam.putCallType = {'put'}; %change from call to put
 [ArithMeanPutPrice,out] = genOptPrice(ArithMeanPut); %uses meanMC_g to compute the price
-disp(['The price of this Asian arithemetic mean put option is $' num2str(ArithMeanPutPrice) ...
+disp(['The price of this Asian arithmetic mean put option is $' num2str(ArithMeanPutPrice) ...
    ' +/- $' num2str(max(ArithMeanPut.priceParam.absTol, ...
    ArithMeanPut.priceParam.relTol*ArithMeanPutPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
@@ -94,7 +94,7 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 ArithMeanCallBigd = optPrice(ArithMeanCall); %make a copy
 ArithMeanCallBigd.timeDim.timeVector = 1/250:1/250:0.25; %daily monitoring
 [ArithMeanCallBigdPrice,out] = genOptPrice(ArithMeanCallBigd); %uses meanMC_g to compute the price
-disp(['The price of this Asian arithemetic mean call option is $' num2str(ArithMeanCallBigdPrice) ...
+disp(['The price of this Asian arithmetic mean call option is $' num2str(ArithMeanCallBigdPrice) ...
    ' +/- $' num2str(max(ArithMeanCallBigd.priceParam.absTol, ...
    ArithMeanCallBigd.priceParam.relTol*ArithMeanCallBigdPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely

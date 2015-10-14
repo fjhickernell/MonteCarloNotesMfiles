@@ -10,7 +10,7 @@ inp.assetParam.initPrice = 120; %initial stock price
 inp.assetParam.interest = 0.01; %risk-free interest rate
 inp.assetParam.volatility = 0.5; %volatility
 inp.payoffParam.strike = 130; %strike price
-inp.priceParam.absTol = 0.05; %absolute tolerance of a nickel
+inp.priceParam.absTol = 0.005; %absolute tolerance of half a penny
 inp.priceParam.relTol = 0; %zero relative tolerance
 inp.priceParam.cubMethod = 'Sobol'; %Sobol sampling
 EuroCall = optPrice(inp) %construct an optPrice object 
@@ -54,7 +54,19 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 
 %%
 % The price of the Asian arithmetic mean call option is smaller than the
-% price of the European call option.  
+% price of the European call option. 
+
+%% Speeding Things Up with PCA
+% If we use a PCA construction for the Browniam motion, the Sobol will be
+% even more efficient.
+
+ArithMeanCallPCA = optPrice(ArithMeanCall);
+ArithMeanCallPCA.bmParam.assembleType = 'PCA'
+[ArithMeanCallPCAPrice,out] = genOptPrice(ArithMeanCallPCA); %uses meanMC_g to compute the price
+disp(['The price of this Asian arithemetic mean call option is $' num2str(ArithMeanCallPrice) ...
+   ' +/- $' num2str(max(ArithMeanCallPCA.priceParam.absTol, ...
+   ArithMeanCallPCA.priceParam.relTol*ArithMeanCallPCAPrice)) ])
+disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
 
 %% The Geometric Mean Call as a Control Variate
 % To add the geometric mean call we 
@@ -69,6 +81,6 @@ sob=scramble(sobolset(numel(ArithGeomMeanCall.timeDim.timeVector)), ...
    'MatousekAffineOwen');
 genOptPayoffs(ArithGeomMeanCall,net(sob,6))
 
-%
-% %%
+
+%%
 % _Author: Fred J. Hickernell_

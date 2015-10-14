@@ -66,8 +66,11 @@ publishMathJax('HandlesVsValues')
 publishMathJax('GenerateRandomVariables')
 
 %% Part III Pricing Options
-% Pricing Options with Asian type payoffs:
+% Pricing options with Asian type payoffs:
 publishMathJax('PricingAsianOptions')
+
+% Pricing American options:
+publishMathJax('PricingAmericanOptions')
 
 %%
 % Clean up and publish the total time taken.

@@ -1,5 +1,5 @@
 %% Pricing Asian Style Options
-% As introduced in |IntroGAILOptionPricing|, GAIL gas classes that define
+% As introduced in |IntroGAILOptionPricing|, GAIL has classes that define
 % various types of option payoffs for different models of asset price
 % paths. In this MATLAB script we show how to use these classes for Monte
 % Carlo option pricing of options with Asian style payoffs and European
@@ -27,7 +27,7 @@ EuroCall = optPrice(inp) %construct an optPrice object
 % Note that the default is a European call option.  Its exact price is
 % coded in
 
-disp(['The price of this option is $' num2str(EuroCall.exactPrice)])
+disp(['The price of this European call option is $' num2str(EuroCall.exactPrice)])
 
 %% Arithmetic Mean Options
 % The payoff of the arithmetic mean option depends on the average of the
@@ -51,22 +51,25 @@ ArithMeanCall = optPrice(EuroCall); %make a copy
 ArithMeanCall.payoffParam.optType = {'amean'} %change from European to Asian arithemetic mean
 
 %%
-% Next we genrate the price using the |genOptPrice| method of the |optPrice|
+% Next we generate the price using the |genOptPrice| method of the |optPrice|
 % object. 
 
 [ArithMeanCallPrice,out] = genOptPrice(ArithMeanCall); %uses meanMC_g to compute the price
-disp(['The price of this option is $' num2str(ArithMeanCallPrice) ...
+disp(['The price of this Asian arithemetic mean call option is $' num2str(ArithMeanCallPrice) ...
    ' +/- $' num2str(max(ArithMeanCall.priceParam.absTol, ...
    ArithMeanCall.priceParam.relTol*ArithMeanCallPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
 
 %%
-% We may do the same for the put option
+% The price of the Asian arithmetic mean call option is smaller than the
+% price of the European call option.  
+%
+% We may also price the Asian arithemetic mean put option as follows:
 
 ArithMeanPut = optPrice(ArithMeanCall); %make a copy
 ArithMeanPut.payoffParam.putCallType = {'put'}; %change from call to put
 [ArithMeanPutPrice,out] = genOptPrice(ArithMeanPut); %uses meanMC_g to compute the price
-disp(['The price of this option is $' num2str(ArithMeanPutPrice) ...
+disp(['The price of this Asian arithemetic mean put option is $' num2str(ArithMeanPutPrice) ...
    ' +/- $' num2str(max(ArithMeanPut.priceParam.absTol, ...
    ArithMeanPut.priceParam.relTol*ArithMeanPutPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
@@ -91,7 +94,7 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 ArithMeanCallBigd = optPrice(ArithMeanCall); %make a copy
 ArithMeanCallBigd.timeDim.timeVector = 1/250:1/250:0.25; %daily monitoring
 [ArithMeanCallBigdPrice,out] = genOptPrice(ArithMeanCallBigd); %uses meanMC_g to compute the price
-disp(['The price of this option is $' num2str(ArithMeanCallBigdPrice) ...
+disp(['The price of this Asian arithemetic mean call option is $' num2str(ArithMeanCallBigdPrice) ...
    ' +/- $' num2str(max(ArithMeanCallBigd.priceParam.absTol, ...
    ArithMeanCallBigd.priceParam.relTol*ArithMeanCallBigdPrice)) ])
 disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display results nicely
@@ -143,7 +146,7 @@ BarrierUpInCall = optPrice(EuroCall); %make a copy
 BarrierUpInCall.payoffParam.barrier = 150; %barrier
 BarrierUpInCall.payoffParam.optType = {'upin'}; %up and in
 [BarrierUpInCallPrice,out] = genOptPrice(BarrierUpInCall); %uses meanMC_g to compute the price
-disp(['The price of this option is $' ...
+disp(['The price of this barrier up and in call option is $' ...
    num2str(BarrierUpInCallPrice) ...
    ' +/- $' num2str(max(BarrierUpInCall.priceParam.absTol, ...
    BarrierUpInCall.priceParam.relTol*BarrierUpInCallPrice)) ])
@@ -161,8 +164,8 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 % \begin{array}{rcc}
 % & \textbf{call} & \textbf{put} \\ \hline
 % \textbf{payoff} & 
-% \displaystyle \max\Bigl(S(T) - \min_{0 \le t \le T} S(t),0 \Bigr)\mathsf{e}^{-rT} & 
-% \displaystyle \max\Bigl(\max_{0 \le t \le T} S(t) - S(T),0 \Bigr)\mathsf{e}^{-rT} 
+% \displaystyle \Bigl(S(T) - \min_{0 \le t \le T} S(t),0 \Bigr)\mathsf{e}^{-rT} & 
+% \displaystyle \Bigl(\max_{0 \le t \le T} S(t) - S(T),0 \Bigr)\mathsf{e}^{-rT} 
 % \end{array}
 % \]
 %
@@ -174,7 +177,7 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 LookCall = optPrice(EuroCall); %make a copy
 LookCall.payoffParam.optType = {'look'}; %lookback
 [LookCallPrice,out] = genOptPrice(LookCall); %uses meanMC_g to compute the price
-disp(['The price of this option is $' ...
+disp(['The price of this lookback call option is $' ...
    num2str(LookCallPrice) ...
    ' +/- $' num2str(max(LookCall.priceParam.absTol, ...
    LookCall.priceParam.relTol*LookCallPrice)) ])

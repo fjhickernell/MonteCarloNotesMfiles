@@ -49,5 +49,13 @@ disp(['   and it took ' num2str(out.time) ' seconds to compute']) %display resul
 % Notice that these two prices are similar.  If the interest rate is
 % decreased, then the prices are even closer together.
 
+%% Plotting the Paths
+% We can plot the stock paths and the strike price.  Here the plotting
+% function uses 1e5 paths to compute the exercise boundary.
+
+plot(AmericanPut,'paths',300)
+xlabel('Time')
+ylabel('Price')
+
 %%
 % _Author: Fred J. Hickernell_

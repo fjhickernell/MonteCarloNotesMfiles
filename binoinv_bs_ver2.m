@@ -1,4 +1,4 @@
-function x = binoinv_bs(y,n,p)
+function x = binoinv_bs_ver2(y,n,p)
 %BINOINV_BS Inverse of the binomial CDF using binary search
 %   X = BINOINV_BS(Y,N,P) returns the inverse of the binomial cdf with 
 %   parameters N and P. Since the binomial distribution is

@@ -1,6 +1,6 @@
 %% Publish MATH 565 Demo Scripts
 % This m-file publishes as html files the sample programs used in MATH 565
-% Monte Carlo Methods in Finance.  The se 
+% Monte Carlo Methods in Finance.
 %
 % First we move to the correct directory
 cd(fileparts(which('PublishMATH565Demos'))) %change directory to where this is

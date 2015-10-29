@@ -72,6 +72,13 @@ publishMathJax('PricingAsianOptions')
 % Pricing American options:
 publishMathJax('PricingAmericanOptions')
 
+% Pricing European options with a smile and a skew:
+publishMathJax('PricingSmileSkewEuropeanOptions')
+
+%% Part IV Increasing Efficiency
+% Pricing options control variates:
+publishMathJax('OptionPricingControlVariates')
+
 %%
 % Clean up and publish the total time taken.
 load PublishTime.mat %load back tPubStart

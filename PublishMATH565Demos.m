@@ -76,8 +76,11 @@ publishMathJax('PricingAmericanOptions')
 publishMathJax('PricingSmileSkewEuropeanOptions')
 
 %% Part IV Increasing Efficiency
-% Pricing options control variates:
+% Pricing options with control variates:
 publishMathJax('OptionPricingControlVariates')
+
+% Pricing options with importance sampling:
+publishMathJax('OptionPricingImportanceSampling')
 
 %%
 % Clean up and publish the total time taken.

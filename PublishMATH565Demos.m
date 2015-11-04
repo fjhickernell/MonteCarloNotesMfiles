@@ -82,6 +82,10 @@ publishMathJax('OptionPricingControlVariates')
 % Pricing options with importance sampling:
 publishMathJax('OptionPricingImportanceSampling')
 
+% Pricing options with antithetic variates:
+publishMathJax('OptionPricingAntitheticVariates')
+
+
 %%
 % Clean up and publish the total time taken.
 load PublishTime.mat %load back tPubStart

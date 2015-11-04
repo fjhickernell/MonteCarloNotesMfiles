@@ -30,6 +30,7 @@ AMeanPut = optPrice(inp); %construct an optPrice object
 disp(['The price of the Asian arithmetic mean put option is $' ...
    num2str(AMeanPutPrice,'%5.2f')])
 disp(['   and this took ' num2str(Aout.time) ' seconds'])
+disp(['The total number of paths needed is ' num2str(Aout.nPaths)])
 
 %% The Asian arithmetic mean put *with* importance sampling
 % The stock price must drop significantly for the payoff to be positive.
@@ -83,9 +84,15 @@ disp(['   and this took ' num2str(Aout.time) ' seconds'])
 % {\exp\bigl(-\frac12 (\boldsymbol{z}-\boldsymbol{a})^T
 % \mathsf{\Sigma}^{-1}
 % (\boldsymbol{z} - \boldsymbol{a}) \bigr)}
-% = f(\boldsymbol{z}) \exp\bigl(\boldsymbol{a}^T
-% \mathsf{\Sigma}^{-1}(\boldsymbol{a}/2 - \boldsymbol{z}) \bigr)
+% = f(\boldsymbol{z}) \exp\bigl((\boldsymbol{a}/2 - \boldsymbol{z})^T
+% \mathsf{\Sigma}^{-1}\boldsymbol{a} \bigr)
 % \end{gather*} 
+%
+% Finally note that 
+%
+% \[ \mathsf{\Sigma}^{-1}\boldsymbol{a} = \begin{pmatrix} 0 \\ 0 \\ \vdots
+% \\ 0 \\ a \end{pmatrix}, \qquad \tilde{f}(\boldsymbol{z}) =
+% f(\boldsymbol{z}) \exp\bigl((aT/2 - z_d)a \bigr) \]
 %
 % Since this functionality is not available in GAIL yet, we need to create
 % our own function that generates the payoffs from the drifted Brownian
@@ -108,6 +115,7 @@ disp(['The price of the Asian arithmetic mean put option is $' ...
 disp(['   and this took ' num2str(AISout.time) ' seconds,'])
 disp(['   which is ' num2str(AISout.time/Aout.time) ...
    ' of the time without importance sampling'])
+disp(['The total number of paths needed is ' num2str(AISout.ntot)])
 
 %% 
 % Note that the price is the same, but the time required is much less.

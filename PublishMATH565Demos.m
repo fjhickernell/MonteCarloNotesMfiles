@@ -82,6 +82,9 @@ publishMathJax('OptionPricingControlVariates')
 % Pricing options with importance sampling:
 publishMathJax('OptionPricingImportanceSampling')
 
+% A game with importance sampling:
+publishMathJax('GamewithImportanceSampling')
+
 % Pricing options with antithetic variates:
 publishMathJax('OptionPricingAntitheticVariates')
 

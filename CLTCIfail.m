@@ -5,6 +5,8 @@
 % analysis based on the CLT is heuristic, not rigorous.  This example
 % points to how CLT based confidence intervals might fail.
 
+%%
+
 InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% The test case

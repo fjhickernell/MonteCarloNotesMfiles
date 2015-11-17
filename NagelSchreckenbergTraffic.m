@@ -4,6 +4,8 @@
 % track. Their speeding up and slowing down is determined by a random
 % process.
 
+%%
+
 InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 set(0,'defaultLineMarkerSize',3) %small dots
 tstart=tic; %start timer

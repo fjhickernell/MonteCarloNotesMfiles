@@ -32,7 +32,7 @@ absTol = 0.05;
 relTol = 0;
 [euroCallPrice,out] = meanMC_CLT(euroCallPayoff,absTol,relTol);
 disp(['The approximate European call price = ' ...
-   num2str(euroCallPrice,'%6.3f') ' +/ ' num2str(absTol,'%4.3f') ])
+   num2str(euroCallPrice,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.ntot) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 
@@ -40,7 +40,7 @@ disp(['   based on ' num2str(out.ntot) ' samples and ' ...
 % Next we use the guaranteed confidence interval 
 [euroCallPrice,out] = meanMC_g(euroCallPayoff,absTol,relTol);
 disp(['The approximate European call price = ' ...
-   num2str(euroCallPrice,'%6.3f') ' +/ ' num2str(absTol,'%4.3f') ])
+   num2str(euroCallPrice,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.ntot) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 
@@ -91,7 +91,7 @@ euroCallPriceObject.priceParam.cubMethod = 'Sobol'
 [euroCallPriceGAIL,out] = genOptPrice(euroCallPriceObject);
 disp('Using the GAIL optPrice class with Sobol sampling,')
 disp(['   the approximate European call price = ' ...
-   num2str(euroCallPriceGAIL,'%6.3f') ' +/ ' num2str(absTol,'%4.3f') ])
+   num2str(euroCallPriceGAIL,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.nPaths) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 
@@ -114,7 +114,7 @@ lookbackPutPriceObject.payoffParam.putCallType = {'put'} %put option
 [lookbackPutPriceGAIL,out] = genOptPrice(lookbackPutPriceObject);
 disp('Using the GAIL optPrice class with Sobol sampling,')
 disp(['   the approximate lookback put price = ' ...
-   num2str(lookbackPutPriceGAIL,'%6.3f') ' +/ ' num2str(absTol,'%4.3f') ])
+   num2str(lookbackPutPriceGAIL,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.nPaths) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 
@@ -128,7 +128,7 @@ lookbackPutPriceObject.wnParam.xDistrib = 'Gaussian'
 [lookbackPutPriceGAIL,out] = genOptPrice(lookbackPutPriceObject);
 disp('Using the GAIL optPrice class with IID sampling,')
 disp(['   the approximate lookback put price = ' ...
-   num2str(lookbackPutPriceGAIL,'%6.3f') ' +/ ' num2str(absTol,'%4.3f') ])
+   num2str(lookbackPutPriceGAIL,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.nPaths) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 

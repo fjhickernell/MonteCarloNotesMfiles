@@ -88,6 +88,8 @@ publishMathJax('GamewithImportanceSampling')
 % Pricing options with antithetic variates:
 publishMathJax('OptionPricingAntitheticVariates')
 
+% Pricing options with quasi-Monte Carlo sampling:
+publishMathJax('QuasiMonteCarloOptionPricing')
 
 %%
 % Clean up and publish the total time taken.

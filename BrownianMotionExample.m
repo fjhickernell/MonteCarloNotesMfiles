@@ -33,7 +33,7 @@ methods(ourBrownianMotion) %these are the methods that can be used to operate on
 % \quad Z_1, Z_2, \ldots \text{ IID } \mathcal{N(0,1)}. 
 % \]
 %
-% Next we use the |plot| method to plot some paths
+% Next we use the |plot| method to plot some paths.
 
 n = 20; %number of paths to plot
 plot(ourBrownianMotion,n) %plot n paths

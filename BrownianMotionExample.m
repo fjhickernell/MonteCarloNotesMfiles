@@ -24,7 +24,7 @@ whos %note that its class is shown
 methods(ourBrownianMotion) %these are the methods that can be used to operate on this object
 
 %%
-% We have not generated any Brownia motion paths, only constructed the
+% We have not generated any Brownian motion paths, only constructed the
 % class that generates samples of Brownian motions.  Note that the
 % properties of this class are that it uses IID sampling and a
 % time-differencing scheme, namely

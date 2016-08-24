@@ -3,7 +3,8 @@
 % financial derivative or option.  An option gives the right, but not the
 % obligation, to conduct some transaction at a future date.
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+%%
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Plot historical data
 % Here we load in the historical adjusted daily closing prices of a stock

@@ -82,7 +82,7 @@ SVal = @(n) S0*exp(bsxfun(@plus, ... %bsxfun is a great way to operate on one ve
    scVolatility * cumsum(randn(n,d),2))); %randn produces Gaussian random numbers
 n1 = 20; %small number of paths
 stockVal = SVal(n1); %generate some paths into the future
-hold on 
+hold on %this prevents erasing the plot when something new is added
 plot([0 timeAfter],[repmat(S0,n1,1) stockVal],'-', ...
    [timeFinal timeFinal],[300 900],'k--'); %plot the future scenarios
 text(0.47,220,'\(T\)') %label the final time

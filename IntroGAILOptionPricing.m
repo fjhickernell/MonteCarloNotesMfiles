@@ -22,7 +22,7 @@
 % specifying the time vector.  Here we repeat that, but with a coarser time
 % discretization
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 inp.timeDim.timeVector = 0.25:0.25:1; %time increments of 0.004 up to time 1
 ourBrownianMotion = brownianMotion(inp) %construct a brownianMotion object
 

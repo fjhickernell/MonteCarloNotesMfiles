@@ -9,7 +9,7 @@
 % We consider the problem of sampling uniformly on the unit cube, \([0,1]^d\). 
 % For illustration we choose \(d = 2\).  Here are \(n=256\) IID samples
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 d = 2; %dimension
 n = 256; %number of samples
 xIID = rand(n,d); %uniform (quasi-)random numbers

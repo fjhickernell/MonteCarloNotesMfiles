@@ -7,7 +7,7 @@
 % solution using CLT confidence intervals.
 
 %%
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Initialize Parameters
 % Rather than calibrate the model from scratch, we use the parameters

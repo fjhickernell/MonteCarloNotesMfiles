@@ -7,7 +7,7 @@
 %% Initialize the workspace and setting the display parameters
 % These settings clean up the workspace and make the display beautiful.
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Plot historical hata
 % Here we load in the historical adjusted daily closing prices of a stock

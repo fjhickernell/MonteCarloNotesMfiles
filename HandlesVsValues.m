@@ -1,5 +1,5 @@
 %% Handles Versus Values
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %%
 % A value variable is what we are most familiar with.  First we set |x| to

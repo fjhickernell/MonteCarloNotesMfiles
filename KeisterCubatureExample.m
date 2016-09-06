@@ -27,7 +27,7 @@
 % To find \(I\) by Monte Carlo methods we define an anonymous function
 % \(f\) as follows:
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 normsqd = @(t) sum(t.*t,2); %squared l_2 norm of t
 f1 = @(normt,a,d) ((2*pi*a^2).^(d/2)) * cos(a*sqrt(normt)) ...
    .* exp((1/2-a^2)*normt);

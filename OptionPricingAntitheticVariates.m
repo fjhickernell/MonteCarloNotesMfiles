@@ -9,7 +9,7 @@
 %% Initialization
 % First we set up the basic common praramters for our examples.
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 inp.timeDim.timeVector = 1/52:1/52:1/4; %weekly monitoring for three months
 inp.assetParam.initPrice = 100; %initial stock price
 inp.assetParam.interest = 0.05; %risk-free interest rate

@@ -5,7 +5,7 @@
 % writing the variables to the hard drive. This script demonstrates the
 % problems and a potential workaround.
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% The mean of the sum of IID \(\mathcal{U}[0,1]\) random variables
 % Let

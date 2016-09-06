@@ -5,7 +5,7 @@
 %% Initializing the workspace and setting the display parameters
 % These settings clean up the workspace and make the display beautiful.
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Sandwich Shop Parameters
 % A sandwich shop orders \(O\) sandwiches each day at a fixed price of

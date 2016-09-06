@@ -19,7 +19,7 @@
 % \sim \mathcal{U}[0,1]^d.
 % \]
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 unif = @(n,ab) bsxfun(@plus,ab(1,:), bsxfun(@times, diff(ab,1,1),rand(n,size(ab,2))));
    %function to generate n uniform random vectors on the box defined by ab
 figure

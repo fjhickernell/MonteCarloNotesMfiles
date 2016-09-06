@@ -6,7 +6,7 @@
 
 %%
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 set(0,'defaultLineMarkerSize',3) %small dots
 tstart=tic; %start timer
 

@@ -7,7 +7,7 @@
 
 %%
 
-InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% The test case
 % Consider the case of \(Y = X^p\) where \(X \sim \mathcal{U}(0,1)\).  Then

@@ -22,7 +22,7 @@ tstart=tic; %start timer
 N=100; %number of vehicles on the track
 M=1000; %number of spaces on the track, who
 vmax=5; %speed limit
-p=2/3; %probability of slowing
+p=1/3; %probability of slowing
 
 %%
 % To mitigate the effect of initial conditions, we run the simulation for

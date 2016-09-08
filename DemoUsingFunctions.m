@@ -3,7 +3,7 @@
 %%
 gail.InitializeWorkspaceDisplay
 
-%% Function plotxpax
+%% Function plotexpax
 % Here is a function that we defined in another file that we will use
 % multiple times
 %
@@ -18,4 +18,7 @@ plotexpax(1,[-1 1]);
 
 %% Third plot
 plotexpax(1,[0 10]);
+
+%%
+% _Author: Fred J. Hickernell_
 

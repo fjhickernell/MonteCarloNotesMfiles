@@ -35,8 +35,9 @@ methods(ourBrownianMotion) %these are the methods that can be used to operate on
 %
 % Next we use the |plot| method to plot some paths.
 
-n = 20; %number of paths to plot
-plot(ourBrownianMotion,n) %plot n paths
+nplot = 20; %number of paths to plot
+figure
+plot(ourBrownianMotion,nplot) %plot n paths
 xlabel('Time')
 ylabel('Brownian Motion Paths')
 print -depsc BrownianMotionPaths.eps
@@ -62,6 +63,26 @@ covBMPaths = cov(bmPaths); %this should be close to min(t_i,t_j)
 worstCov = max(max(abs(covBMPaths ...
    - bsxfun(@min,ourBrownianMotion.timeDim.timeVector', ...
    ourBrownianMotion.timeDim.timeVector)))) %this should be close to zero
+
+%% Another Construction method
+% We may also construct Brownian motions using a principal component
+% analysis (PCA) method.  For IID sampling there is not much difference,
+% but for low discrepancy (Sobol', lattice) sampling, this method might be
+% better.
+
+ourPCA_BM = brownianMotion(ourBrownianMotion); %make a new copy
+ourPCA_BM.bmParam.assembleType = 'PCA'; %change the construction method
+figure 
+plot(ourPCA_BM,nplot) %plot n paths
+xlabel('Time')
+ylabel('Brownian Motion Paths')
+print -depsc BrownianMotionPaths.eps
+bmPaths = genPaths(ourPCA_BM,n); %an n by 250 matrix of numbers
+largestMean = max(abs(mean(bmPaths))) %this should be close to zero
+covBMPaths = cov(bmPaths); %this should be close to min(t_i,t_j)
+worstCov = max(max(abs(covBMPaths ...
+   - bsxfun(@min,ourPCA_BM.timeDim.timeVector', ...
+   ourPCA_BM.timeDim.timeVector)))) %this should be close to zero
 
 %%
 % _Author: Fred J. Hickernell_

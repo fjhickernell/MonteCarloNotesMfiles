@@ -18,6 +18,7 @@
 %  To generate some paths we first set the parameters
 
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+tic
 inp.timeDim.timeVector = 0.004:0.004:1; %time increments of 0.004 up to time 1
 ourBrownianMotion = brownianMotion(inp) %construct a Brownian motion object
 whos %note that its class is shown
@@ -83,6 +84,7 @@ covBMPaths = cov(bmPaths); %this should be close to min(t_i,t_j)
 worstCov = max(max(abs(covBMPaths ...
    - bsxfun(@min,ourPCA_BM.timeDim.timeVector', ...
    ourPCA_BM.timeDim.timeVector)))) %this should be close to zero
+toc
 
 %%
 % _Author: Fred J. Hickernell_

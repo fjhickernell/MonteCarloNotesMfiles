@@ -150,6 +150,31 @@ PDFvals = [0.2 0.4 0.3 0.1] %corresponding values of the PDF
 CDFvals = cumsum(PDFvals) %corresponding values of the CDF
 
 %%
+% Here is a plot of \(F\) and \(F^{-1}\)
+
+figure
+plot(yvals, CDFvals, '.', ...
+   [-1 yvals; yvals 4],[0 CDFvals; 0 CDFvals],'-', ...
+   'color',MATLABBlue)
+hold on
+plot(yvals, [0 CDFvals(1:3)], '.', ...
+   [yvals; yvals],[0 CDFvals(1:3); CDFvals],'-', ...
+   'color',MATLABOrange)
+axis([-1 4 -0.1 1.1])
+hlab = xlabel('\(y\)','color',MATLABBlue);
+hlabPos = get(hlab,'Position');
+haxPos = get(gca,'Position');
+hlab.Position = hlabPos - [0.5 0 0];
+text(hlabPos(1)+0.2,hlabPos(2)-0.07,'\(F^{-1}(x)\)','color',MATLABOrange)
+hlab = ylabel('\(F(y)\)','color',MATLABBlue);
+hlabPos = get(hlab,'Position');
+hlab.Position = hlabPos - [0 0.15 0];
+text(hlabPos(1)-0.15,hlabPos(2)+0.15,'\(x\)','color',MATLABOrange, ...
+   'rotation',90);
+set(gca,'Position', haxPos);
+print -depsc discreteFFinv.eps
+
+%%
 % We can use the |griddedInterpolant| to build the quantile function,
 % \(F^{-1}\).
 
@@ -189,7 +214,7 @@ toc
 % Gaussian random variables
 
 tic
-ZCDF = norminv(rand(n,1)); %generate Gaussian random numbers byt the inverse CDF transform
+ZCDF = norminv(rand(n,1)); %generate Gaussian random numbers by the inverse CDF transform
 toc
 
 %%

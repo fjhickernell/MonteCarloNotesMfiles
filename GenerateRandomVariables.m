@@ -161,18 +161,19 @@ plot(yvals, [0 CDFvals(1:3)], '.', ...
    [yvals; yvals],[0 CDFvals(1:3); CDFvals],'-', ...
    'color',MATLABOrange)
 axis([-1 4 -0.1 1.1])
-hlab = xlabel('\(y\)','color',MATLABBlue);
-hlabPos = get(hlab,'Position');
-haxPos = get(gca,'Position');
-hlab.Position = hlabPos - [0.5 0 0];
+hlab = xlabel('\(y\)','color',MATLABBlue); %x-axis label
+hlabPos = get(hlab,'Position'); %get its position
+haxPos = get(gca,'Position'); %get position of the whole plot
+hlab.Position = hlabPos - [0.5 0 0]; %move label left
 text(hlabPos(1)+0.2,hlabPos(2)-0.07,'\(F^{-1}(x)\)','color',MATLABOrange)
-hlab = ylabel('\(F(y)\)','color',MATLABBlue);
-hlabPos = get(hlab,'Position');
-hlab.Position = hlabPos - [0 0.15 0];
+   %add another x-axis label
+hlab = ylabel('\(F(y)\)','color',MATLABBlue); %y-axis label
+hlabPos = get(hlab,'Position'); %get its position
+hlab.Position = hlabPos - [0 0.15 0]; %move label down
 text(hlabPos(1)-0.15,hlabPos(2)+0.15,'\(x\)','color',MATLABOrange, ...
-   'rotation',90);
-set(gca,'Position', haxPos);
-print -depsc discreteFFinv.eps
+   'rotation',90); %add another y-axis label
+set(gca,'Position', haxPos); %re-set plot position
+print -depsc discreteFFinv.eps %print the plot
 
 %%
 % We can use the |griddedInterpolant| to build the quantile function,

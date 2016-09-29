@@ -57,7 +57,7 @@ figure
 plot(AmericanPut,'paths',300)
 xlabel('Time, \(t\)')
 ylabel('Stock Price, \(S\)')
-axis([0 AmericanPut.timeDim.timeVector(end) 0 2.5*AmericanPut.assetParam.initPrice])
+axis([0 AmericanPut.timeDim.timeVector(end) 0 2*AmericanPut.payoffParam.strike])
 text(0.05,180,'\(P = 0 < H = V\)')
 text(0.05,110,'\(0 < P < H = V\)')
 text(0.05,30,'\(0 < H < P = V\)')

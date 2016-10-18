@@ -27,7 +27,7 @@ disp(['    with a geometric Brownian motion is $' num2str(EuroPut.exactPrice,'%5
 
 AmerPut = optPrice(EuroPut); %construct an American put object
 AmerPut.payoffParam.optType = {'american'};
-[AmerPutPrice,Aout] = genOptPrice(AmerPut);
+[AmerPutPrice,Aout] = genOptPrice(AmerPut)
 disp(['The price of the American put option is $' ...
    num2str(AmerPutPrice,'%5.2f')])
 disp(['   and this took ' num2str(Aout.time) ' seconds'])
@@ -55,7 +55,7 @@ AmerEuro.payoffParam = ...
 % Now we call |meanMC_g|:
 
 [AmerEuroPrice, AEout] = meanMC_g(@(n) YoptPrice_CV(AmerEuro,n), ...
-   inp.priceParam.absTol, inp.priceParam.relTol);
+   inp.priceParam.absTol, inp.priceParam.relTol)
 disp(['The price of the American put option is $' ...
    num2str(AmerPutPrice,'%5.2f')])
 disp(['   and this took ' num2str(AEout.time) ' seconds,'])

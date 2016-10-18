@@ -1,7 +1,7 @@
 %% Pricing Options with Volatility Smile and Skew
 % When we allow the volatility of the asset price to vary with the asst
 % price itself, we must solve the stochastic differential equation
-% describin the asset path _approximately_ , using, say an Euler-Maruyama
+% describin the asset path _approximately_, using, say an Euler-Maruyama
 % scheme.
 %
 % This kind of asset path is not yet implemented in the GAIL |assetPath|
@@ -11,6 +11,7 @@
 % First we set up the basic common praramters for our examples.
 
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+t0 = tic;
 inp.timeDim.timeVector = 1/52:1/52:1/4; %weekly monitoring for three months
 bmObj = brownianMotion(inp); %create a Brownian motion object
 inp.assetParam.initPrice = 100; %initial stock price
@@ -33,8 +34,8 @@ disp(['    with a geometric Brownian motion is $' num2str(EuroCall.exactPrice,'%
 % of the |optPrice| class, but need to be input in another way because the
 % |assetPath| class does not yet support the smile and skew.
 
-inp.assetParam.sigskew = 0.1; %skew parameter
-inp.assetParam.sigsmile = 0.2; %smile parameter
+inp.assetParam.sigskew = 0.4; %skew parameter
+inp.assetParam.sigsmile = 0.6; %smile parameter
 
 %%
 % We have written a function to generate smile and skew paths and also the
@@ -74,6 +75,7 @@ SmileSkewOptionPrice = meanMC_g(@(n) smileSkewEuro(n,bmObj,inp), ...
    inp.priceParam.absTol, inp.priceParam.relTol);
 disp('The price of the European put option')
 disp(['    with a skew and smile is $' num2str(SmileSkewOptionPrice,'%5.2f')])
+toc(t0) %how much time does this take
 
 %%
 % _Author: Fred J. Hickernell_

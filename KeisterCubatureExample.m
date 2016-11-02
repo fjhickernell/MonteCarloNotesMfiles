@@ -39,7 +39,7 @@ f = @(t,a,d) f1(normsqd(t),a,d);
 abstol = 0; %absolute error tolerance
 reltol = 0.01; %relative error tolerance
 dvec = 1:5; %vector of dimensions
-a = 1; %default value of a
+a = 1 %default value of a
 IMCvec = zeros(size(dvec)); %vector of answers
 tic
 for d = dvec
@@ -82,7 +82,40 @@ toc
 IMCvec
 relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 
+%% Lattice Cubature
+% We may sample the integrand using the nodeset of a rank-1 integration
+% lattice to approximate this integral.
+a = sqrt(1/2); %default value of a again
+ILatticevec = zeros(size(dvec)); %vector of answers
+tic
+for d = dvec
+   ILatticevec(d) = cubLattice_g(@(x) f(x,a,d),[-inf(1,d); inf(1,d)], ...
+      'normal',abstol,reltol);
+end
+toc
+ILatticevec
+relErrLattice = abs(Ivec-ILatticevec)./abs(Ivec)
+
 %%
+% We see that the the relative error using the lattice rule is still within
+% tolerance, but the time required is much less.
+
+%% Sobol Cubature
+% We may use the Sobol' cubature to approximate this integral.
+a = 1; %default value of a again
+ISobolvec = zeros(size(dvec)); %vector of answers
+tic
+for d = dvec
+   ISobolvec(d) = cubLattice_g(@(x) f(x,a,d),[-inf(1,d); inf(1,d)], ...
+      'normal',abstol,reltol);
+end
+toc
+ISobolvec
+relErrSobol = abs(Ivec-ISobolvec)./abs(Ivec)
+
+%%
+% Again, the relative error using the Sobol' rule is within tolerance, but
+% the time required is much less.
 %
 % _Author: Fred J. Hickernell_
 

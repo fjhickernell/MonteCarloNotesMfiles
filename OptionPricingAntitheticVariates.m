@@ -28,7 +28,8 @@ AMeanPut = optPrice(inp); %construct an optPrice object
 [AMeanPutPrice,Aout] = genOptPrice(AMeanPut);
 disp(['The price of the Asian arithmetic mean put option is $' ...
    num2str(AMeanPutPrice,'%5.2f')])
-disp(['   and this took ' num2str(Aout.time) ' seconds'])
+disp(['   and this took ' num2str(Aout.nPaths) ' paths and ' ...
+   num2str(Aout.time) ' seconds'])
 
 %% The Asian arithmetic mean put *with* antithetic variates
 % Since this functionality is not available in GAIL yet, we need to create
@@ -48,9 +49,11 @@ disp(['   and this took ' num2str(Aout.time) ' seconds'])
    inp.priceParam.absTol, inp.priceParam.relTol);
 disp(['The price of the Asian arithmetic mean put option is $' ...
    num2str(AMeanPriceAnti,'%5.2f')])
-disp(['   and this took ' num2str(AAntiout.time) ' seconds,'])
-disp(['   which is ' num2str(AAntiout.time/Aout.time) ...
-   ' of the time without importance sampling'])
+disp(['   and this took ' num2str(AAntiout.ntot) ' paths and ' ...
+   num2str(AAntiout.time) ' seconds'])
+disp(['   which is ' num2str(AAntiout.ntot/Aout.nPaths) ...
+   ' of the paths and ' num2str(AAntiout.time/Aout.time) ' of the time'])
+disp('      without importance sampling')
 
 %% 
 % Note that the price is the same, but the time required is much less.

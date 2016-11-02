@@ -18,7 +18,7 @@ inp.assetParam.volatility = 0.5; %volatility
 inp.payoffParam.strike = 90; %strike price
 inp.payoffParam.optType = {'amean'}; %looking at an arithmetic mean option
 inp.payoffParam.putCallType = {'put'}; %looking at a put option
-inp.priceParam.absTol = 0.01; %absolute tolerance of a one cent
+inp.priceParam.absTol = 0.005; %absolute tolerance of half a cent
 inp.priceParam.relTol = 0; %zero relative tolerance
 
 %% The Asian arithmetic mean put without importance sampling

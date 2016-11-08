@@ -53,6 +53,10 @@ publishMathJax('RAMproblems')
 publishMathJax('KeisterCubatureExample')
 
 %%
+% Multivariate normal (Gaussian) probability examble:
+publishMathJax MultivariateNormalProbabilityExample
+
+%%
 % Simulating Brownian motions:
 publishMathJax('BrownianMotionExample')
 

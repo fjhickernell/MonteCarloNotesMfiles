@@ -5,10 +5,9 @@
 %
 % \[
 % p = \int_{[\boldsymbol{a},\boldsymbol{b}]} 
-% \frac{1}{\sqrt{(2\pi)^d \textrm{det}(\Sigma)}}
-% \exp\bigl((\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1} 
-% (\boldsymbol{x} - \boldsymbol{\mu})/2\bigr) \, \mathrm{d}
-% \boldsymbol{x}.
+% \frac{\exp\bigl((\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1} 
+% (\boldsymbol{x} - \boldsymbol{\mu})/2\bigr)}
+% {\sqrt{(2\pi)^d \textrm{det}(\Sigma)}} \, \mathrm{d} \boldsymbol{x}.
 % \]
 %
 % where \(\boldsymbol{a}\), \(\boldsymbol{b}\), \(\boldsymbol{\mu}\), and

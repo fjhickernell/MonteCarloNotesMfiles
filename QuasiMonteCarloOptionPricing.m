@@ -54,7 +54,7 @@ ylabel('$x_2$') %the axes
 title('Sobol'' points')
 axis square %make the aspect ratio equal to one
 
-%% Pricing the Asian Geometric Mean Call Option
+%% Pricing the Asian Arithmetic Mean Call Option
 % Now we set up the parameters for option pricing.  We consider first the
 % Asian Geometric Mean Call with weeky monitoring for three months
 
@@ -63,7 +63,7 @@ inp.assetParam.initPrice = 100; %initial stock price
 inp.assetParam.interest = 0.02; %risk-free interest rate
 inp.assetParam.volatility = 0.5; %volatility
 inp.payoffParam.strike = 100; %strike price
-inp.payoffParam.optType = {'gmean'}; %looking at an arithmetic mean option
+inp.payoffParam.optType = {'amean'}; %looking at an arithmetic mean option
 inp.payoffParam.putCallType = {'call'}; %looking at a put option
 inp.priceParam.absTol = 0.005; %absolute tolerance of a one cent
 inp.priceParam.relTol = 0; %zero relative tolerance
@@ -88,7 +88,7 @@ AMeanCallSobol.priceParam.cubMethod = 'Sobol' %change to Sobol sampling
 [AMeanCallSobolPrice,AoutSobol] = genOptPrice(AMeanCallSobol);
 fprintf(['The price of the Asian geometric mean call option using Sobol'' ' ...
    'sampling is\n   $%3.3f +/- $%2.3f and this took %10.0f paths and %3.6f seconds,\n' ...
-   'which is only %1.4f the time required by IID sampling\n'], ...
+   'which is only %1.5f the time required by IID sampling\n'], ...
    AMeanCallSobolPrice,AMeanCallSobol.priceParam.absTol,AoutSobol.nPaths, ...
    AoutSobol.time,AoutSobol.time/AoutIID.time)
 
@@ -101,7 +101,7 @@ AMeanCallSobol.bmParam.assembleType = 'PCA'; %change to a PCA construction
 [AMeanCallSobolPrice,AoutSobol] = genOptPrice(AMeanCallSobol);
 fprintf(['The price of the Asian geometric mean call option using Sobol'' ' ...
    'sampling and PCA is\n   $%3.3f +/- $%2.3f and this took %10.0f paths and %3.6f seconds,\n' ...
-   'which is only %1.4f the time required by IID sampling\n'], ...
+   'which is only %1.5f the time required by IID sampling\n'], ...
    AMeanCallSobolPrice,AMeanCallSobol.priceParam.absTol,AoutSobol.nPaths, ...
    AoutSobol.time,AoutSobol.time/AoutIID.time)
 
@@ -113,12 +113,32 @@ AMeanCallLattice.priceParam.cubMethod = 'lattice' %change to Sobol sampling
 [AMeanCallLatticePrice,AoutLattice] = genOptPrice(AMeanCallLattice);
 fprintf(['The price of the Asian geometric mean call option using lattice ' ...
    'sampling is\n   $%3.3f +/- $%2.3f and this took %10.0f paths and %3.6f seconds,\n' ...
-   'which is only %1.4f the time required by IID sampling\n'], ...
+   'which is only %1.5f the time required by IID sampling\n'], ...
    AMeanCallLatticePrice,AMeanCallLattice.priceParam.absTol,AoutLattice.nPaths, ...
    AoutLattice.time,AoutLattice.time/AoutIID.time)
 
 %% 
 % Note that the time is also less than for IID, but similar to that for
 % Sobol' sampling.
+
+%% Sobol' Sampling with Control Variates
+% We can use control variates with Sobol' and lattice sampling, but it is a
+% bit different than for IID sampling.  Here is an example.
+AMeanCallSobolCV = optPrice(AMeanCallSobol); %make a copy of the object
+AMeanCallSobolCV.payoffParam = struct( ...
+   'optType',{{'amean','gmean'}},...  %Add two payoffs
+   'putCallType',{{'call','call'}});  %both calls
+AMeanCallSobolCV.priceParam.cubMethod = 'SobolCV'; %change method to use control variates
+[AMeanCallSobolCVPrice,AoutSobolCV] = genOptPrice(AMeanCallSobolCV);
+fprintf(['The price of the Asian geometric mean call option using Sobol'' ' ...
+   'sampling with PCA and control variates is\n' ...
+   '$%3.3f +/- $%2.3f and this took %10.0f paths and %3.6f seconds,\n' ...
+   'which is only %1.5f the time required by IID sampling\n'], ...
+   AMeanCallSobolCVPrice,AMeanCallSobolCV.priceParam.absTol,AoutSobolCV.nPaths, ...
+   AoutSobolCV.time,AoutSobolCV.time/AoutIID.time)
+
+%%
+% The use of control variates reduces the time to compute the answer even
+% further compared to Sobol' sampling without control variates.
 %
 % _Author: Fred J. Hickernell_

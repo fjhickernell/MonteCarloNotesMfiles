@@ -99,6 +99,9 @@ publishMathJax('OptionPricingAntitheticVariates')
 % Pricing options with quasi-Monte Carlo sampling:
 publishMathJax('QuasiMonteCarloOptionPricing')
 
+% Comparing two trading strategies
+publishMathJax ATradingStrategyExample
+
 %%
 % Clean up and publish the total time taken.
 load PublishTime.mat %load back tPubStart

@@ -25,10 +25,10 @@ inp.timeDim.timeVector = 1/52:1/52:1/2; %weekly monitoring for half a year
 inp.assetParam.initPrice = 100; %initial stock price
 inp.assetParam.interest = 0.02; %risk-neutral rate
 inp.assetParam.volatility = 0.5; %volatility
-risklessInterest = 0.01;
-cutoff = 75;
-absTol = 0.1
-relTol = 0;
+risklessInterest = 0.01; %interest for putting money in bank
+cutoff = 75; %cutoff where we should sell
+absTol = 0.05; %absolute tolerance 
+relTol = 0; %relative tolerance
 StockMC = assetPath(inp)
 
 %% Cautious Trading Strategy
@@ -62,7 +62,7 @@ StockSobol.inputType = 'x'; %cubSobol uses x values as inputs
 StockSobol.wnParam.sampleKind = 'Sobol'; %change from IID
 StockSobol.bmParam.assembleType = 'PCA' %makes the calculations more efficient
 d = size(StockSobol.timeDim.timeVector,2); %the dimension of the problem
-absTol = 0.005; %smaller tolerance
+absTol = 0.005; %smaller absolute tolerance
 [expValSobol,outSobol] = cubSobol_g(@(x) returnValue(StockSobol,x,cutoff,risklessInterest), ...
    [zeros(1,d); ones(1,d)],'uniform', absTol, relTol);
 fprintf(1,'The expected discounted return if cuts losses, now using Sobol, is $%6.4f\n', ...

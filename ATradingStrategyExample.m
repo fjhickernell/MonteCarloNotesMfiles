@@ -39,6 +39,8 @@ StockMC = assetPath(inp)
 % risk-free rate. But suppose that we decide to protect against adverse
 % loss by selling if the stock ever gets below \(\$75\).  Will this affect
 % our expected return?  Let's see.
+%
+% <include>returnValue.m</include>
 
 fprintf(1,'The expected discounted return if one just waits six months is $%6.4f\n', ...
    inp.assetParam.initPrice*(exp((inp.assetParam.interest-risklessInterest)/2)-1))

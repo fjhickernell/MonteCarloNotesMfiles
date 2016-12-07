@@ -85,7 +85,7 @@ relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 %% Lattice Cubature
 % We may sample the integrand using the nodeset of a rank-1 integration
 % lattice to approximate this integral.
-a = sqrt(1/2); %default value of a again
+a = 1; %default value of a again
 ILatticevec = zeros(size(dvec)); %vector of answers
 tic
 for d = dvec

@@ -106,7 +106,7 @@ a = 1; %default value of a again
 ISobolvec = zeros(size(dvec)); %vector of answers
 tic
 for d = dvec
-   ISobolvec(d) = cubLattice_g(@(x) f(x,a,d),[-inf(1,d); inf(1,d)], ...
+   ISobolvec(d) = cubSobol_g(@(x) f(x,a,d),[-inf(1,d); inf(1,d)], ...
       'normal',abstol,reltol);
 end
 toc

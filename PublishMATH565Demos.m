@@ -9,6 +9,9 @@ tPubStart = tic; %start timer
 save('PublishTime.mat','tPubStart') %save it because clearvars is invoked by demos
 
 %% MATH 565 Part I Introduction
+% Simulation of the game of craps:
+publishMathJax('CrapsSimulation')
+
 % How to use Monte Carlo methods to price a European option:
 publishMathJax('OptionPricingExample')
 

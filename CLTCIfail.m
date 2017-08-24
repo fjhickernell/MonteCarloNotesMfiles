@@ -36,7 +36,7 @@ muhat=zeros(Ntry,1); %initialize
 %% Run the simulation for a nice \(p\)
 p=0.4; %should be >-1 for mu to be finite, and >-0.5 for var(Y) to be finite
 for j=1:Ntry %perform Monte Carlo Ntry times
-    [muhat(j),output]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
+    [muhat(j),out]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
 end
 err=abs(mu(p)-muhat); %compute true error
 fail=mean(err>absTol); %proportion of failures to meet tolerance
@@ -44,8 +44,8 @@ toc %compute elapsed time
 disp(['For Y = X.^' num2str(p)])
 disp('   with X distributed uniformly on [0, 1]')
 disp(['For an uncertainty = ' num2str(100*alpha) '%' ])
-disp(['            nsigma = ' int2str(output.nSig)])
-disp(['  inflation factor = ' num2str(output.inflate)])
+disp(['            nsigma = ' int2str(out.nSig)])
+disp(['  inflation factor = ' num2str(out.CM.inflate)])
 disp(['         tolerance = ' num2str(absTol)])
 disp(['         true mean = ' num2str(mu(p))])
 disp('The CLT-based confidence interval')
@@ -56,10 +56,10 @@ disp(' ')
 %%
 % This case works pretty well
 
-%% Run the simulation again a bad \(p\)
+%% Run the simulation again for a bad \(p\)
 p=-0.4; %should be >-1 for mu to be finite, and >-0.5 for var(Y) to be finite
 for j=1:Ntry %perform Monte Carlo Ntry times
-    [muhat(j),output]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
+    [muhat(j),out]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
 end
 err=abs(mu(p)-muhat); %compute true error
 fail=mean(err>absTol); %proportion of failures to meet tolerance
@@ -68,8 +68,8 @@ toc %compute elapsed time
 %% Display results
 disp(['For Y = X.^' num2str(p)])
 disp('   with X distributed uniformly on [0, 1]')
-disp(['            nsigma = ' int2str(output.nSig)])
-disp(['  inflation factor = ' num2str(output.inflate)])
+disp(['            nsigma = ' int2str(out.nSig)])
+disp(['  inflation factor = ' num2str(out.CM.inflate)])
 disp(['         tolerance = ' num2str(absTol)])
 disp(['         true mean = ' num2str(mu(p))])
 disp('The CLT-based confidence interval')

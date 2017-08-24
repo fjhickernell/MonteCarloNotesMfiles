@@ -37,6 +37,7 @@ publishMathJax('OptionPricingMeanMC_CLT')
 % How CLT-based confidence intervals can fail:
 publishMathJax('CLTCIfail')
 
+return
 %%
 % How price options to a given error tolerance using a guaranteed algorithm
 % for computing fixed width confidence intervals---this algorithm is in

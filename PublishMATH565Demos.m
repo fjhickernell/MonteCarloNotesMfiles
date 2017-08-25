@@ -12,12 +12,13 @@ save('PublishTime.mat','tPubStart') %save it because clearvars is invoked by dem
 % Simulation of the game of craps:
 publishMathJax('CrapsSimulation')
 
+%% 
+% How to use a function for repeated operations:
+publishMathJax('DemoUsingFunctions')
+
+%%
 % How to use Monte Carlo methods to price a European option:
 publishMathJax('OptionPricingExample')
-
-%% 
-% How to use a function for repeated operations
-publishMathJax('DemoUsingFunctions')
 
 %%
 % How to use Monte Carlo methods to model traffic flow:

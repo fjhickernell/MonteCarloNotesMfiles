@@ -33,8 +33,7 @@ end
 if GAIL
    disp('The GAIL package is now being downloaded...')
    unzip('https://github.com/GailGithub/GAIL_Dev/archive/develop.zip'); %download and unzip
-   movefile('GAIL_Dev-develop', 'GAIL_Dev') 
-   addpath(genpath(fullfile(cd,'GAIL_Dev')))
+   addpath(genpath(fullfile(cd,'GAIL_Dev-develop')))
    savepath  
 end
 

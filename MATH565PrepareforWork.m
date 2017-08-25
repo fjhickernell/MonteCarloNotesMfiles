@@ -31,18 +31,23 @@ end
 
 %% Download the GAIL package and add to the MATLAB path
 if GAIL
-   disp('The GAIL package is now being downloaded...')
-   unzip('https://github.com/GailGithub/GAIL_Dev/archive/develop.zip'); %download and unzip
+   if ~exist('GAIL_Dev-develop','dir')
+      disp('The GAIL package is now being downloaded...')
+      unzip('https://github.com/GailGithub/GAIL_Dev/archive/develop.zip'); %download and unzip
+   end
+   disp('Adding GAIL_Dev-develop to path')
    addpath(genpath(fullfile(cd,'GAIL_Dev-develop')))
    savepath  
 end
 
 %% Download the MonteCarloNotesMfiles repository and add to the MATLAB path
 if MATH565
-   fprintf('The MonteCarloNotesMfiles package is now being downloaded...\n')
-   unzip('https://github.com/fjhickernell/MonteCarloNotesMfiles/archive/master.zip'); %download and unzip
-   movefile('MonteCarloNotesMfiles-master', 'MonteCarloNotesMfiles') 
-   wholepath=genpath(fullfile(cd,'MonteCarloNotesMfiles'));% Generate strings of paths to GAIL subdirectories
+   if ~exist('MonteCarloNotesMfiles-master','dir')
+      fprintf('The MonteCarloNotesMfiles package is now being downloaded...\n')
+      unzip('https://github.com/fjhickernell/MonteCarloNotesMfiles/archive/master.zip'); %download and unzip
+   end
+   disp('Adding MonteCarloNotesMfiles-master to path')
+   wholepath=genpath(fullfile(cd,'MonteCarloNotesMfiles-master'));% Generate strings of paths to GAIL subdirectories
    addpath(wholepath); % Add MonteCarloNotesMfiles directories and subdirectories
    savepath  
    fprintf('MonteCarloNotesMfiles has been succesfully installed.\n\n')
@@ -52,7 +57,7 @@ end
 if PubDemo 
    disp('Now we perform a test by publishing one demo: OptionPricingExample')
    publishMathJax OptionPricingExample
-   web(['MonteCarloNotesMfiles' filesep 'html' filesep 'OptionPricingExample.html'])
+   web(['MonteCarloNotesMfiles-master' filesep 'html' filesep 'OptionPricingExample.html'])
 end
 
 end

@@ -4,6 +4,7 @@
 % obligation, to conduct some transaction at a future date.
 
 %%
+function OptionPricingExample %make it a function to not overwrite other variables
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Plot historical data

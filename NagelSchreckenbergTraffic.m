@@ -6,6 +6,7 @@
 
 %%
 
+function NagelSchreckenbergTraffic %make it a function to not overwrite other variables
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 set(0,'defaultLineMarkerSize',3) %small dots
 tstart=tic; %start timer

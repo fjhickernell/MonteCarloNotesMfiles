@@ -7,6 +7,7 @@
 %% Initialize the workspace and setting the display parameters
 % These settings clean up the workspace and make the display beautiful.
 
+function OptionPricingMeanMC_CLT %make it a function to not overwrite other variables
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Plot historical hata
@@ -14,7 +15,7 @@ gail.InitializeWorkspaceDisplay %initialize the workspace and the display parame
 % and plot the most recent year's data.  The data were obtained from
 % <http://finance.yahoo.com> for GOOG for the period ending May 19, 2015.
 
-load stockPriceHistory -ascii %load one year of stock price data into memory
+load stockPriceHistory.txt -ascii %load one year of stock price data into memory
 S0 = stockPriceHistory(end); %stock price today
 Delta = 1/250; %daily time increment in years
 timeBefore = (-249:0) * Delta; %daily monitoring for one year prior to today
@@ -116,8 +117,8 @@ print -depsc PayoffCDF.eps %print the plot to a .eps file
 % Using the Central Limit Theorem we can compute an approximate confidence
 % interval like that above by the GAIL function |meanMC_CLT|.
 
-absTol = 1e-1;
-relTol = 0;
+absTol = 1e-1; %10 cents absolute error
+relTol = 0; %no relative error
 tic
 [euroCallPrice,out] = meanMC_CLT(euroCallPayoff,absTol,relTol)
 toc
@@ -144,14 +145,14 @@ trueEuroCallPrice = S0 * normcdf((log(S0/K) ...
 %
 % We can also set a pure relative error criterion of 5 cents on 10 dollars:
 
-absTol = 0;
-relTol = 0.005;
+absTol = 0; %No absolute error
+relTol = 0.005; %0.5% relative error
 tic
 [euroCallPrice,out] = meanMC_CLT(euroCallPayoff,absTol,relTol)
 toc
 
 %%
-% Now our Monte Carlo approximation is within \(\pm 0.005 \times \$9.98 =
+% Now our Monte Carlo approximation is within \(\pm 0.005 \times \$9.889 =
 % \pm \$0.05\) of the true price.
 %
 % _Author: Fred J. Hickernell_

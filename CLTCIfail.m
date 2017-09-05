@@ -26,7 +26,6 @@ gail.InitializeWorkspaceDisplay %initialize the workspace and the display parame
 %% Set up parameters
 % Now we try using |meanMC_CLT| on this test case
 
-tic
 absTol = 0.01; %error tolerance
 alpha = 0.01; %uncertainty
 Ntry = 5000; %number of trials
@@ -36,6 +35,7 @@ muhat(Ntry,1) = 0; %initialize
 
 %% Run the simulation for a nice \(p\)
 p = 0.4; %should be >-1 for mu to be finite, and >-0.5 for var(Y) to be finite
+tic
 for j = 1:Ntry %perform Monte Carlo Ntry times
     [muhat(j),out]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
 end
@@ -59,6 +59,7 @@ disp(' ')
 
 %% Run the simulation again for a bad \(p\)
 p = -0.4; %should be >-1 for mu to be finite, and >-0.5 for var(Y) to be finite
+tic
 for j = 1:Ntry %perform Monte Carlo Ntry times
     [muhat(j),out]=meanMC_CLT(@(n) Y(n,p),absTol,0,alpha); %estimated mu using CLT confidence intervals
 end

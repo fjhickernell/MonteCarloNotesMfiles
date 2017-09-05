@@ -7,6 +7,7 @@
 % solution using CLT confidence intervals.
 
 %%
+function OptionPricingMeanMC_g %make it a function to not overwrite other variables
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Initialize Parameters

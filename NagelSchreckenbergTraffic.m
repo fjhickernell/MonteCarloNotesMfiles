@@ -88,6 +88,7 @@ plotT=min(T,1000);
 plot(mod(x(T0+1+(0:plotT),:),M),repmat((0:plotT)',1,N),'b.')
 xlabel('Position')
 ylabel('Time')
+set(gcf,'Position',[680 558 840 630])
 print -depsc NSTraffic.eps
 disp(['Time for the graphical display = ' num2str(toc(tstart)) ' seconds'])
 

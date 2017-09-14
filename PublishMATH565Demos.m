@@ -43,7 +43,6 @@ publishMathJax('CLTCIfail')
 % for computing fixed width confidence intervals---this algorithm is in
 % GAIL:
 publishMathJax('OptionPricingMeanMC_g')
-return
 
 %%
 % Confidence intervals for binomial random variables and quantiles:
@@ -64,6 +63,7 @@ publishMathJax MultivariateNormalProbabilityExample
 %%
 % Simulating Brownian motions:
 publishMathJax('BrownianMotionExample')
+return
 
 %%
 % Using the GAIL classes for pricing options with (quasi-)Monte Carlo

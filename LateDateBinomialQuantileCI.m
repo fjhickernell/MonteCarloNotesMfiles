@@ -1,10 +1,11 @@
 %% Late for a Date
+%
 % This example demonstrates the confidence intervals for probabilities and
 % quantiles assuming that you must take different modes of transportation
 % to get to your date.
 %
 % You leave your office and walk to the parking lot.  You then drive to
-% Chinatown, park your car, and walk to Ming Hin restaurant to meet your
+% Chinatown, park your car, and walk to MingHin restaurant to meet your
 % friends.  For illustration purposes, we assume that the times of each
 % segment are distributed uniformly:
 %
@@ -24,7 +25,9 @@
 % * what is the time you need to leave by to guarantee with \(98\%\)
 % confidence that you will be on time.
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+%%
+function LateDateBinomialQuantileCI %make it a function to not overwrite other variables
+gail.InitializeDisplay %initialize  the display parameters
 
 %% Simulating travel times
 % First we construct a function that generates IID travel times.  If $U_1,

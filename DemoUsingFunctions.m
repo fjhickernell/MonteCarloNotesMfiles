@@ -1,14 +1,11 @@
-%% Demo of using a function to store repeated calculations
+%% Demo using a function to store repeated calculations
 
-%%
-gail.InitializeWorkspaceDisplay
+%% 
+% Below is the function |plotexpax| that is used to plot \(\exp(ax)\).  The
+% main function gives examples of several uses of |plotexpax|.
 
-%% Function plotexpax
-% Here is a function that we defined in another file that we will use
-% multiple times
-%
-% <include>plotexpax.m</include>
-%
+function DemoUsingFunctions %make it a function to not overwrite other variables
+gail.InitializeDisplay
 
 %% First plot
 plotexpax(-1,[-1 1]);
@@ -18,6 +15,28 @@ plotexpax(1,[-1 1]);
 
 %% Third plot
 plotexpax(1,[0 10]);
+
+end
+
+%% Function plotexpax
+% Here is a function that we use multiple times
+
+function plotexpax(a,xrange)
+figure
+xplot = xrange(1) + (0:0.001:1)*xrange(2);
+plot(xplot,exp(a*xplot))
+xlabel('\(x\)')
+if a == 0
+   ytext = '\(1\)';
+elseif a == -1
+   ytext = '\(\exp(-x)\)';
+elseif a == 1
+   ytext = '\(\exp(x)\)';
+else 
+   ytext = ['\(\exp(' num2str(a) 'x)\)'];
+end
+ylabel(ytext)
+end
 
 %%
 % _Author: Fred J. Hickernell_

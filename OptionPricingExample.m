@@ -5,7 +5,7 @@
 
 %%
 function OptionPricingExample %make it a function to not overwrite other variables
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeDisplay %initialize the display parameters
 
 %% Plot historical data
 % Here we load in the historical adjusted daily closing prices of a stock

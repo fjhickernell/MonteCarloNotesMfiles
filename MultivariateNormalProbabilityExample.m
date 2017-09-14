@@ -1,6 +1,4 @@
 %% Multivariate Normal Probabilities
-
-%%
 % The multivariate normal probability is defined as 
 %
 % \[
@@ -14,7 +12,9 @@
 % \(\Sigma\) are parameters. Except for very special cases of these
 % parameters, \(p\) must be approximated numerically.
 
-gail.InitializeWorkspaceDisplay %clean up 
+%%
+function MultivariateNormalProbabilityExample %make it a function to not overwrite other variables
+gail.InitializeDisplay %clean up 
 format long
 
 %% Parameter Set-Up

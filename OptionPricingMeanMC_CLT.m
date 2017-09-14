@@ -8,7 +8,7 @@
 % These settings clean up the workspace and make the display beautiful.
 
 function OptionPricingMeanMC_CLT %make it a function to not overwrite other variables
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeDisplay %initialize the display parameters
 
 %% Plot historical hata
 % Here we load in the historical adjusted daily closing prices of a stock

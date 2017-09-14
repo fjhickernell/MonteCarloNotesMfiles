@@ -17,7 +17,8 @@
 % The |develop| branch of the GAIL repository has a |brownianMotion| class.
 %  To generate some paths we first set the parameters
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+function BrownianMotionExample %keep workspace safe
+gail.InitializeDisplay %initialize the display parameters
 tic
 inp.timeDim.timeVector = 0.004:0.004:1; %time increments of 0.004 up to time 1
 ourBrownianMotion = brownianMotion(inp) %construct a Brownian motion object

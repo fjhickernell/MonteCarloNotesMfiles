@@ -8,7 +8,7 @@
 
 %%
 function OptionPricingMeanMC_g %make it a function to not overwrite other variables
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+gail.InitializeDisplay %initialize the display parameters
 
 %% Initialize Parameters
 % Rather than calibrate the model from scratch, we use the parameters
@@ -34,7 +34,7 @@ relTol = 0;
 [euroCallPrice,out] = meanMC_CLT(euroCallPayoff,absTol,relTol);
 disp(['The approximate European call price = ' ...
    num2str(euroCallPrice,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
-disp(['   based on ' num2str(out.ntot) ' samples and ' ...
+disp(['   based on ' num2str(out.nSample) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
 
 %%

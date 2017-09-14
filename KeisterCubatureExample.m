@@ -27,7 +27,9 @@
 % To find \(I\) by Monte Carlo methods we define an anonymous function
 % \(f\) as follows:
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+function KeisterCubatureExample %make it a function to not overwrite other variables
+
+gail.InitializeDisplay %initialize the display parameters
 normsqd = @(t) sum(t.*t,2); %squared l_2 norm of t
 f1 = @(normt,a,d) ((2*pi*a^2).^(d/2)) * cos(a*sqrt(normt)) ...
    .* exp((1/2-a^2)*normt);
@@ -60,7 +62,7 @@ relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 %%
 % All values are within the requested error tolerance.
 
-%% Choosing a different value of \(a\)
+%% Choosing different values of \(a\)
 % The time needed depends on the value of the parameter \(a\).  Let's try
 % two other values:
 
@@ -82,9 +84,44 @@ toc
 IMCvec
 relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 
-%% Lattice Cubature
+%% Choosing all values of \(a\)
+% The algorithm |meanMC_CLT| has the option for you to provide several
+% random variables with the same mean.  The sample means from these several
+% random variables are then weighted to provide an approximation to their
+% comon mean.
+%
+% First we try with three different values of \(a\)
+
+d = 4; %a typical value
+avec = [1/sqrt(2) 1 1.2]; %three different choices of a
+tic
+IMCsmallA = meanMC_CLT(@(n) f(randn(n,d),avec(1),d),abstol,reltol)
+toc
+tic
+IMCmedA = meanMC_CLT(@(n) f(randn(n,d),avec(2),d),abstol,reltol)
+toc
+tic
+IMClargeA = meanMC_CLT(@(n) f(randn(n,d),avec(3),d),abstol,reltol)
+toc
+
+%%
+% Next we try with all values of \(a\)
+
+fAllA = @(t) [f(t,avec(1),d) f(t,avec(2),d) f(t,avec(3),d)];
+tic
+IMCAllA = meanMC_CLT('Y', @(n) fAllA(randn(n,d)), 'nY',3, ...
+   'absTol', abstol, 'relTol',reltol)
+toc
+
+%%
+% The time is worse than for the best choice of \(a\), but better than for
+% the worst choice of \(a\).  It is like an insurance policy.  |meanMC_g|
+% does not yet have this capability, but it should be added.
+
+%% Lattice cubature
 % We may sample the integrand using the nodeset of a rank-1 integration
 % lattice to approximate this integral.
+
 a = 1; %default value of a again
 ILatticevec = zeros(size(dvec)); %vector of answers
 tic
@@ -100,8 +137,9 @@ relErrLattice = abs(Ivec-ILatticevec)./abs(Ivec)
 % We see that the the relative error using the lattice rule is still within
 % tolerance, but the time required is much less.
 
-%% Sobol Cubature
+%% Sobol cubature
 % We may use the Sobol' cubature to approximate this integral.
+
 a = 1; %default value of a again
 ISobolvec = zeros(size(dvec)); %vector of answers
 tic

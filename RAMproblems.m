@@ -5,7 +5,9 @@
 % writing the variables to the hard drive. This script demonstrates the
 % problems and a potential workaround.
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+%%
+function RAMproblems %make it a function to not overwrite other variables
+gail.InitializeDisplay %initialize the display parameters
 
 %% The mean of the sum of IID \(\mathcal{U}[0,1]\) random variables
 % Let

@@ -5,6 +5,7 @@
 %% Initializing the workspace and setting the display parameters
 % These settings clean up the workspace and make the display beautiful.
 
+function SandwichShopSimulation %make it a function to not overwrite other variables
 gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
 
 %% Sandwich Shop Parameters

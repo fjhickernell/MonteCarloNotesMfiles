@@ -67,13 +67,13 @@ toc
 % use |binomialCI| to compute a confidence interval on the probability of
 % being late for the date given that you leave \(35\) minutes beforehand.
 
-n = 1e3; %number of samples
+n = 1e4; %number of samples
 lateTime = 35; %what time is considered late
 Ttotval = Ttot(n); %sample of n total times
 lateDateBinCI = binomialCI(n,sum(Ttotval > lateTime)) %confidence interval for being too late
 
 %%
-% The chance is of being late is between \(6\%\) and \(11\%\).
+% The chance is of being late is around \(8\%\).
 
 %% The cut-off time for being on time with a high probability
 % A related problem is determining how late we can leave our office and

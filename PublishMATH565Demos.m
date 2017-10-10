@@ -58,12 +58,11 @@ publishMathJax('KeisterCubatureExample')
 
 %%
 % Multivariate normal (Gaussian) probability examble:
-publishMathJax MultivariateNormalProbabilityExample
+publishMathJax('MultivariateNormalProbabilityExample')
 
 %%
 % Simulating Brownian motions:
 publishMathJax('BrownianMotionExample')
-return
 
 %%
 % Using the GAIL classes for pricing options with (quasi-)Monte Carlo

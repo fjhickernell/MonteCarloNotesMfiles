@@ -13,7 +13,8 @@
 %% Initialization
 % First we set up the basic common praramters for our examples.
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+function PricingAsianOptions %make it a function to avoid variable conflicts
+gail.InitializeDisplay %initialize the workspace and the display parameters
 inp.timeDim.timeVector = 1/52:1/52:1/4; %weekly monitoring for three months
 inp.assetParam.initPrice = 120; %initial stock price
 inp.assetParam.interest = 0.01; %risk-free interest rate

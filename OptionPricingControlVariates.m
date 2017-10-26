@@ -57,12 +57,12 @@ AmerEuro.payoffParam = ...
 [AmerEuroPrice, AEout] = meanMC_g(@(n) YoptPrice_CV(AmerEuro,n), ...
    inp.priceParam.absTol, inp.priceParam.relTol)
 disp(['The price of the American put option is $' ...
-   num2str(AmerPutPrice,'%5.2f')])
+   num2str(AmerEuroPrice,'%5.2f')])
 disp(['   and this took ' num2str(AEout.time) ' seconds,'])
 disp(['   which is ' num2str(AEout.time/Aout.time) ...
    ' of the time without control variates'])
 
 %% 
-% Note that the price is the same, but the time required is much less.
+% Note that the price is similar, but the time required is much less.
 %
 % _Author: Fred J. Hickernell_

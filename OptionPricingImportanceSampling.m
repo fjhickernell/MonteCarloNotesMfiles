@@ -10,7 +10,8 @@
 %% Initialization
 % First we set up the basic common praramters for our examples.
 
-gail.InitializeWorkspaceDisplay %initialize the workspace and the display parameters
+function OptionPricingImportanceSampling
+gail.InitializeDisplay %initialize the display parameters
 inp.timeDim.timeVector = 1/52:1/52:1/4; %weekly monitoring for three months
 inp.assetParam.initPrice = 100; %initial stock price
 inp.assetParam.interest = 0.05; %risk-free interest rate
@@ -69,15 +70,15 @@ disp(['The total number of paths needed is ' num2str(Aout.nPaths)])
 % re-write the integral as 
 %
 % \begin{gather*} 
-% \mu = \mathbb{E}[\tilde{f}(\boldsymbol{Z})] 
+% \mu = \mathbb{E}[f_{\mathrm{new}}(\boldsymbol{Z})] 
 % = \int_{\mathbb{R}^d}
-% \tilde{f}(\boldsymbol{z}) 
+% f_{\mathrm{new}}(\boldsymbol{z}) 
 % \frac{\exp\bigl(-\frac12 (\boldsymbol{z}-\boldsymbol{a})^T
 % \mathsf{\Sigma}^{-1}
 % (\boldsymbol{z} - \boldsymbol{a}) \bigr)}
 % {\sqrt{(2 \pi)^{d} \det(\mathsf{\Sigma})}} \, \mathrm{d} \boldsymbol{z} ,
 % \\
-% \tilde{f}(\boldsymbol{z}) = 
+% f_{\mathrm{new}}(\boldsymbol{z}) = 
 % f(\boldsymbol{z}) 
 % \frac{\exp\bigl(-\frac12 \boldsymbol{z}^T
 % \mathsf{\Sigma}^{-1} \boldsymbol{z} \bigr)}
@@ -91,35 +92,61 @@ disp(['The total number of paths needed is ' num2str(Aout.nPaths)])
 % Finally note that 
 %
 % \[ \mathsf{\Sigma}^{-1}\boldsymbol{a} = \begin{pmatrix} 0 \\ 0 \\ \vdots
-% \\ 0 \\ a \end{pmatrix}, \qquad \tilde{f}(\boldsymbol{z}) =
+% \\ 0 \\ a \end{pmatrix}, \qquad f_{\mathrm{new}}(\boldsymbol{z}) =
 % f(\boldsymbol{z}) \exp\bigl((aT/2 - z_d)a \bigr) \]
 %
-% Since this functionality is not available in GAIL yet, we need to create
-% our own function that generates the payoffs from the drifted Brownian
-% motion and the multiplies by the weights. We have written such a
-% function:
-%
-% <include>YoptPrice_IS.m</include>
-%
-% In the future, this function should not be needed because GAIL will
-% contain this functionality.
-%
-% Now we call |meanMC_g|:
-%
+% This drift in the Brownian motion may be implemented by changing the
+% |meanShift| property of the |optPrice| object.
 
-drift = -2; %the amount of the drift
-[AMeanPriceIS, AISout] = meanMC_g(@(n) YoptPrice_IS(AMeanPut,n,drift), ...
-   inp.priceParam.absTol, inp.priceParam.relTol);
+AMeanPut.assetParam.meanShift = -1; %a = -1
+[AMeanPriceIS, AISout] = genOptPrice(AMeanPut); %price the option
 disp(['The price of the Asian arithmetic mean put option is $' ...
    num2str(AMeanPriceIS,'%5.2f')])
 disp(['   and this took ' num2str(AISout.time) ' seconds,'])
 disp(['   which is ' num2str(AISout.time/Aout.time) ...
    ' of the time without importance sampling'])
-disp(['The total number of paths needed is ' num2str(AISout.ntot)])
+disp(['The total number of paths needed is ' num2str(AISout.nPaths)])
+
+%%
+% We can try another shift as well.
+
+AMeanPut.assetParam.meanShift = -2;
+[AMeanPriceIS, AISout] = genOptPrice(AMeanPut); %price the option
+disp(['The price of the Asian arithmetic mean put option is $' ...
+   num2str(AMeanPriceIS,'%5.2f')])
+disp(['   and this took ' num2str(AISout.time) ' seconds,'])
+disp(['   which is ' num2str(AISout.time/Aout.time) ...
+   ' of the time without importance sampling'])
+disp(['The total number of paths needed is ' num2str(AISout.nPaths)])
+
+%%
+% But if we go to far, the computation time will be worse.
+
+AMeanPut.assetParam.meanShift = 1;
+[AMeanPriceIS, AISout] = genOptPrice(AMeanPut); %price the option
+disp(['The price of the Asian arithmetic mean put option is $' ...
+   num2str(AMeanPriceIS,'%5.2f')])
+disp(['   and this took ' num2str(AISout.time) ' seconds,'])
+disp(['   which is ' num2str(AISout.time/Aout.time) ...
+   ' of the time without importance sampling'])
+disp(['The total number of paths needed is ' num2str(AISout.nPaths)])
+
+%%
+% And if we shift the paths up for this put option, the computation time
+% will be worse.
+
+AMeanPut.assetParam.meanShift = 1;
+[AMeanPriceIS, AISout] = genOptPrice(AMeanPut); %price the option
+disp(['The price of the Asian arithmetic mean put option is $' ...
+   num2str(AMeanPriceIS,'%5.2f')])
+disp(['   and this took ' num2str(AISout.time) ' seconds,'])
+disp(['   which is ' num2str(AISout.time/Aout.time) ...
+   ' of the time without importance sampling'])
+disp(['The total number of paths needed is ' num2str(AISout.nPaths)])
 
 %% 
-% Note that the price is the same, but the time required is much less.
-% Unfortunately, it is difficult to know in advance what the optimal drift
-% is.
+% Note that in every case the price is the same, but the time required is
+% much less. Unfortunately, it is difficult to know in advance what the
+% optimal drift is.
 %
 % _Author: Fred J. Hickernell_

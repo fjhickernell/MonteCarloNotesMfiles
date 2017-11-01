@@ -120,9 +120,9 @@ disp(['   which is ' num2str(AISout.time/Aout.time) ...
 disp(['The total number of paths needed is ' num2str(AISout.nPaths)])
 
 %%
-% But if we go to far, the computation time will be worse.
+% But if we go too far, the computation time will be worse.
 
-AMeanPut.assetParam.meanShift = 1;
+AMeanPut.assetParam.meanShift = -3;
 [AMeanPriceIS, AISout] = genOptPrice(AMeanPut); %price the option
 disp(['The price of the Asian arithmetic mean put option is $' ...
    num2str(AMeanPriceIS,'%5.2f')])

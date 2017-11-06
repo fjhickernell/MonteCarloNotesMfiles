@@ -25,7 +25,7 @@ fprintf('   using %6.0f samples and %3.6f seconds\n', ...
    out.ntot,out.time)
 
 %% Monte Carlo with Importance Sampling
-% We may add the importance sampling to increas the number of samples with
+% We may add the importance sampling to increase the number of samples with
 % positive payoffs. Let 
 %
 % \[ \boldsymbol{Z} = (X_1^{1/(p+1)}, X_2^{1/(p+1)}), \qquad

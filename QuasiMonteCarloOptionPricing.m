@@ -13,7 +13,7 @@ gail.InitializeWorkspaceDisplay %initialize the workspace and the display parame
 d = 2; %dimension
 n = 256; %number of samples
 xIID = rand(n,d); %uniform (quasi-)random numbers
-plot(xIID(:,1),xIID(:,2),'b.') %plot the points 
+plot(xIID(:,1),xIID(:,2),'.') %plot the points 
 xlabel('$x_1$') %and label
 ylabel('$x_2$') %the axes
 title('IID points')
@@ -30,15 +30,15 @@ axis square %make the aspect ratio equal to one
 
 figure
 xLattice = mod(bsxfun(@plus,gail.lattice_gen(1,n,d),rand(1,d)),1); %the first n rank-1 lattice node sets, shifted
-plot(xLattice(:,1),xLattice(:,2),'b.') %plot the points 
+plot(xLattice(:,1),xLattice(:,2),'.') %plot the points 
 xlabel('$x_1$') %and label
 ylabel('$x_2$') %the axes
 title('Rank-1 lattice node set')
 axis square %make the aspect ratio equal to one
 
 %%
-% Now the gaps and clusters are smaller are smaller.  The points _do_ know
-% about the locations of each other, so they are _dependent_.
+% Now the gaps are smaller and the clusters are less dense.  The points
+% _do_ know about the locations of each other, so they are _dependent_.
 
 %% Scrambled Sobol' points
 % Another way to sample more _evenly_ is to use Sobol' points.  Here is a
@@ -48,7 +48,7 @@ axis square %make the aspect ratio equal to one
 figure
 sob = scramble(sobolset(d),'MatousekAffineOwen'); %create a scrambled Sobol object
 xSobol = net(sob,n); %the first n points of a Sobol' sequence
-plot(xSobol(:,1),xSobol(:,2),'b.') %plot the points 
+plot(xSobol(:,1),xSobol(:,2),'.') %plot the points 
 xlabel('$x_1$') %and label
 ylabel('$x_2$') %the axes
 title('Sobol'' points')

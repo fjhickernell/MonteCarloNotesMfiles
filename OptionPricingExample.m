@@ -160,7 +160,7 @@ print -depsc StockHistoryPlusFuturePlusStrike.eps
 
 %% 
 % All the paths that end up above \(K = \$600\) have a positive payoff.
-% Some paths will yield a positive payoff and other will not.
+% Some paths will yield a positive payoff and others will not.
 
 interest = drift + volatility^2/2 %interest rate
 Yval = max(stockVal(:,d) - K, 0) * exp(-interest * timeFinal); %payoffs

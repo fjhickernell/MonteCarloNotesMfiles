@@ -88,7 +88,7 @@ relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 % The algorithm |meanMC_CLT| has the option for you to provide several
 % random variables with the same mean.  The sample means from these several
 % random variables are then weighted to provide an approximation to their
-% comon mean.
+% common mean.
 %
 % First we try with three different values of \(a\)
 

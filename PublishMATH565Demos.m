@@ -28,6 +28,7 @@ publishMathJax('NagelSchreckenbergTraffic')
 % How to use Monte Carlo methods to compute average profit for a sandwich
 % shop:
 publishMathJax('SandwichShopSimulation')
+return
 
 %%
 % How price options to a given error tolerance using CLT-based fixed width

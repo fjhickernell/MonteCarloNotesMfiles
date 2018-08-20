@@ -67,6 +67,8 @@ nSample = 1000;
 crapsResults = craps(nSample);
 probWinVec = cumsum(crapsResults)./(1:nSample)';
 semilogx((1:nSample)',probWinVec,[1 nSample],[probWin probWin],'--')
+xlabel('Sample Size, \(n\)')
+ylabel('Win Probability')
 toc
 
 %%
@@ -75,8 +77,8 @@ toc
    
 %% Craps function that provides |nRounds| of IID wins/losses
 function wins = craps(nRounds)
-   wins(nRounds,1) = false; %initialize a logica vector of size nRounds
-   for i = 1:nRounds %generate a vector 
+   wins(nRounds,1) = false; %initialize a logical vector of size nRounds
+   for i = 1:nRounds %generate a logical vector of wins/losses
       firstRoll = sum(ceil(6*rand(1,2))); %sum of two dice, each uniformly having 1 through 6
       if any(firstRoll == [7 11]) %automatic win
          wins(i) = true;

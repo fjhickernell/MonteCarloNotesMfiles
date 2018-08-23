@@ -16,6 +16,7 @@
 % * the sum is the same number as the first roll, in which case the shooter
 % _wins_ , or
 % * the sum is a 7, in which case the shooter _loses_.
+% Hi class!
 
 %% 
 function CrapsSimulation

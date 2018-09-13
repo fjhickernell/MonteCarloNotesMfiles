@@ -59,9 +59,16 @@ toc
 
 %% The probability of being late
 % If we only leave our office \(29\) minutes before our date, we will
-% sometimes be early and sometimes be late.  Since this is an important
-% date we plan to leave \(35\) minutes beforehand and hope to be early or
-% on time. What is the chance that we will be late?
+% sometimes be early and sometimes be late.  
+
+n = 1e4; %number of samples
+lateTime = 29; %what time is considered late
+Ttotval = Ttot(n); %sample of n total times
+lateDateBinCI = binomialCI(n,sum(Ttotval > lateTime)) %confidence interval for being too late
+
+% Since this is an important date we plan to leave \(35\) minutes
+% beforehand and hope to be early or on time. What is the chance that we
+% will be late?
 %
 % We now perform \(n\) trials, and count the number of late dates.  Then we
 % use |binomialCI| to compute a confidence interval on the probability of

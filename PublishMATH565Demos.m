@@ -28,7 +28,6 @@ publishMathJax('NagelSchreckenbergTraffic')
 % How to use Monte Carlo methods to compute average profit for a sandwich
 % shop:
 publishMathJax('SandwichShopSimulation')
-return
 
 %%
 % How price options to a given error tolerance using CLT-based fixed width
@@ -52,6 +51,7 @@ publishMathJax('LateDateBinomialQuantileCI')
 %%
 % Demonstrates how to avoid problems of insufficient RAM in certain cases:
 publishMathJax('RAMproblems')
+return
 
 %%
 % Keister's multidimensional integration example:

@@ -39,11 +39,12 @@ disp(['   based on ' num2str(out.nSample) ' samples and ' ...
 
 %%
 % Next we use the guaranteed confidence interval 
-[euroCallPrice,out] = meanMC_g(euroCallPayoff,absTol,relTol);
+[euroCallPrice,out] = meanMC_g(euroCallPayoff,absTol,relTol,0.01,1.2,1e5)
 disp(['The approximate European call price = ' ...
    num2str(euroCallPrice,'%6.3f') ' +/- ' num2str(absTol,'%4.3f') ])
 disp(['   based on ' num2str(out.ntot) ' samples and ' ...
    num2str(out.time,'%4.4f') ' seconds'])
+return
 
 %%
 % The time is a somewhat more for |meanMC_g| because more samples are

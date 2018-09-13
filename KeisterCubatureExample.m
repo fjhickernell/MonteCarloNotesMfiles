@@ -4,27 +4,27 @@
 % Physics_, *10*, pp. 119-122, 1996, presents the following
 % multidimensional integral, inspired by a physics application:
 %
-% \[ I = \int_{\mathbb{R}^d} \cos(\lVert \boldsymbol{x} \rVert)
-% \exp(-\lVert \boldsymbol{x} \rVert^2) \, \mathrm{d} \boldsymbol{x},
+% \[ \mu = \int_{\mathbb{R}^d} \cos(\lVert \boldsymbol{t} \rVert)
+% \exp(-\lVert \boldsymbol{t} \rVert^2) \, \mathrm{d} \boldsymbol{t},
 % \qquad d = 1, 2, \ldots. \]
 
 %% Expressing the integral as an expectation
 % Let's evaluate the integral using Monte Carlo cubature.  We first note
-% that the change of variable \(\boldsymbol{t} = \boldsymbol{x}/a\)
+% that the change of variable \(\boldsymbol{t} = a \boldsymbol{x}\)
 % transforms this integral into
 %
-% \begin{align*} I &= \int_{\mathbb{R}^d} \cos(a \lVert \boldsymbol{t}
-% \rVert) \exp(-a^2 \lVert \boldsymbol{t} \rVert^2) \, a^d \mathrm{d}
-% \boldsymbol{t}, \qquad a > 0, \\ & = \int_{\mathbb{R}^d}
-% \underbrace{(2\pi a^2)^{d/2} \cos(a \lVert \boldsymbol{t} \rVert)
-% \exp((1/2-a^2) \lVert \boldsymbol{t} \rVert^2)}_{f(\boldsymbol{t})}
-% \times \underbrace{\frac{\exp(-\lVert \boldsymbol{t} \rVert^2/2)}
-% {(2\pi)^{d/2}}}_{\varrho(\boldsymbol{t})} \, \mathrm{d} \boldsymbol{t} \\
-% & = \mathbb{E}[f(\boldsymbol{T})], \qquad \text{where } \boldsymbol{T} \sim \mathcal{N}(\boldsymbol{0},
-% \mathsf{I}). \end{align*}
+% \begin{align*} \mu &= \int_{\mathbb{R}^d} \cos(a \lVert \boldsymbol{x}
+% \rVert) \exp(-a^2 \lVert \boldsymbol{x} \rVert^2) \, a^d \, \mathrm{d} 
+% \boldsymbol{x}, \qquad a > 0, \\ & = \int_{\mathbb{R}^d}
+% \underbrace{(2\pi a^2)^{d/2} \cos(a \lVert \boldsymbol{x} \rVert)
+% \exp((1/2-a^2) \lVert \boldsymbol{x} \rVert^2)}_{f(\boldsymbol{x})}
+% \times \underbrace{\frac{\exp(-\lVert \boldsymbol{x} \rVert^2/2)}
+% {(2\pi)^{d/2}}}_{\varrho(\boldsymbol{x})} \, \mathrm{d} \boldsymbol{x} \\
+% & = \mathbb{E}[f(\boldsymbol{X})], \qquad \text{where } \boldsymbol{X}
+% \sim \mathcal{N}(\boldsymbol{0}, \mathsf{I}). \end{align*}
 
 %% Evaluating the integral using |meanMC_g|
-% To find \(I\) by Monte Carlo methods we define an anonymous function
+% To find \(\mu\) by Monte Carlo methods we define an anonymous function
 % \(f\) as follows:
 
 function KeisterCubatureExample %make it a function to not overwrite other variables
@@ -45,7 +45,7 @@ a = 1 %default value of a
 IMCvec = zeros(size(dvec)); %vector of answers
 tic
 for d = dvec
-   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol);
+   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol); %compute the integral for different d
 end
 toc
 IMCvec
@@ -63,13 +63,13 @@ relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 % All values are within the requested error tolerance.
 
 %% Choosing different values of \(a\)
-% The time needed depends on the value of the parameter \(a\).  Let's try
-% two other values:
+% The value of the integral does not depend on the value of the parameter
+% \(a\), but the time required may. Let's try two other values:
 
 a = sqrt(1/2) %a smaller value of a
 tic
 for d = dvec
-   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol);
+   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol); %compute the integral for different d
 end
 toc
 IMCvec
@@ -78,7 +78,7 @@ relErrMC = abs(Ivec-IMCvec)./abs(Ivec)
 a = 1.2 %a larger value of a
 tic
 for d = dvec
-   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol);
+   IMCvec(d) = meanMC_g(@(n) f(randn(n,d),a,d),abstol,reltol); %compute the integral for different d
 end
 toc
 IMCvec

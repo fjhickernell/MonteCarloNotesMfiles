@@ -3,7 +3,7 @@
 %
 % \[
 % p = \int_{[\boldsymbol{a},\boldsymbol{b}]} 
-% \frac{\exp\bigl((\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1} 
+% \frac{\exp\bigl(-(\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1} 
 % (\boldsymbol{x} - \boldsymbol{\mu})/2\bigr)}
 % {\sqrt{(2\pi)^d \textrm{det}(\Sigma)}} \, \mathrm{d} \boldsymbol{x}.
 % \]

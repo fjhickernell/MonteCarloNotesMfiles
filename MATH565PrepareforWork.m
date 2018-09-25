@@ -33,7 +33,8 @@ end
 if GAIL
    if ~exist('GAIL_Dev-develop','dir')
       disp('The GAIL package is now being downloaded...')
-      unzip('https://github.com/GailGithub/GAIL_Dev/archive/develop.zip'); %download and unzip
+      websave('GAIL_Dev-develop.zip','https://github.com/GailGithub/GAIL_Dev/archive/develop.zip'); %download
+      unzip('GAIL_Dev-develop.zip') %and unzip
    end
    disp('Adding GAIL_Dev-develop to path')
    addpath(genpath(fullfile(cd,'GAIL_Dev-develop')))
@@ -44,7 +45,8 @@ end
 if MATH565
    if ~exist('MonteCarloNotesMfiles-master','dir')
       fprintf('The MonteCarloNotesMfiles package is now being downloaded...\n')
-      unzip('https://github.com/fjhickernell/MonteCarloNotesMfiles/archive/master.zip'); %download and unzip
+      websave('MonteCarloNotesMfiles.zip','https://github.com/fjhickernell/MonteCarloNotesMfiles/archive/master.zip'); %download 
+      unzip('MonteCarloNotesMfiles.zip') % and unzip
    end
    disp('Adding MonteCarloNotesMfiles-master to path')
    wholepath=genpath(fullfile(cd,'MonteCarloNotesMfiles-master'));% Generate strings of paths to GAIL subdirectories
@@ -54,7 +56,7 @@ if MATH565
 end
 
 %% Test things out
-if PubDemo 
+if PubDemo
    disp('Now we perform a test by publishing one demo: OptionPricingExample')
    publishMathJax OptionPricingExample
    web(['MonteCarloNotesMfiles-master' filesep 'html' filesep 'OptionPricingExample.html'])

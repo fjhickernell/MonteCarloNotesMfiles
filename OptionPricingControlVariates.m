@@ -62,6 +62,23 @@ disp(['   and this took ' num2str(AEout.time) ' seconds,'])
 disp(['   which is ' num2str(AEout.time/Aout.time) ...
    ' of the time without control variates'])
 
+%% The American put *with* two control variates
+% To use control variates we need to set up an |optPayoff| object with
+% _two_ or more payoffs, the one whose expectation we want to compute, and the
+% control variate(s)
+
+AmerEuroGeo = optPayoff(AmerPut);
+AmerEuroGeo.payoffParam = ...
+   struct('optType',{{'american','euro','gmean'}}, ... %note two kinds of option payoffs
+   'putCallType', {{'put','put','put'}}) %this needs to have the same dimension
+[AmerEuroGeoPrice, AEGout] = meanMC_g(@(n) YoptPrice_CV(AmerEuroGeo,n), ...
+   inp.priceParam.absTol, inp.priceParam.relTol)
+disp(['The price of the American put option is $' ...
+   num2str(AmerEuroGeoPrice,'%5.2f')])
+disp(['   and this took ' num2str(AEGout.time) ' seconds,'])
+disp(['   which is ' num2str(AEGout.time/Aout.time) ...
+   ' of the time without control variates'])
+
 %% 
 % Note that the price is similar, but the time required is much less.
 %

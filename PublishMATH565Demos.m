@@ -51,7 +51,6 @@ publishMathJax('LateDateBinomialQuantileCI')
 %%
 % Demonstrates how to avoid problems of insufficient RAM in certain cases:
 publishMathJax('RAMproblems')
-return
 
 %%
 % Keister's multidimensional integration example:

@@ -4,8 +4,8 @@
 % paths with positive payoffs will be given less weight so that the sample
 % mean still approximates the true mean or true option price.
 %
-% This functionality is not yet implemented in the GAIL |optPrice| class,
-% so we will solve the problem in a less elegant manner.
+% This functionality does not work correctly for American options.  It 
+% needs to be fixed.
 
 %% Initialization
 % First we set up the basic common praramters for our examples.

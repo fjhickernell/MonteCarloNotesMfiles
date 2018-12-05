@@ -53,7 +53,7 @@ disp(['   and this took ' num2str(AAntiout.ntot) ' paths and ' ...
    num2str(AAntiout.time) ' seconds'])
 disp(['   which is ' num2str(AAntiout.ntot/Aout.nPaths) ...
    ' of the paths and ' num2str(AAntiout.time/Aout.time) ' of the time'])
-disp('      without importance sampling')
+disp('      without antithetic variates')
 
 %% 
 % Note that the price is the same, but the time required is much less.
